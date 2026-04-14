@@ -1,4 +1,11 @@
 sid,friendly_name,code_length,lookup_enabled,psd2_enabled,status,date_created,date_updated
-VA8b99e8b6571167c5,Verify Service 1,6,true,false,active,2023-10-08T03:30:14.122Z,2026-04-14T20:25:20.531Z
-VA876bfd7b8db23fde,Verify Service 2,6,true,false,active,2024-02-10T09:16:22.813Z,2026-04-14T20:25:20.531Z
-VA36551b63d60211d2,Verify Service 3,6,true,false,active,2025-10-18T22:41:40.842Z,2026-04-14T20:25:20.531Z
+VAb5ed1fa6b256a34d,Login Verification,4,true,false,active,2023-06-25T06:13:01.685Z,2026-04-14T22:28:04.220Z
+VAfbe8887045dc953c,2FA Service,4,true,false,inactive,2023-07-23T22:29:40.767Z,2026-04-14T22:28:04.220Z
+VA98a7377205571866,Transaction Approval,4,true,false,active,2025-04-23T16:27:27.102Z,2026-04-14T22:28:04.220Z
+VAc76fb59092805154,Password Reset,6,true,true,active,2024-04-16T04:57:27.950Z,2026-04-14T22:28:04.220Z
+VAd4f0b2c408e0f411,Account Recovery,4,false,false,active,2023-08-21T21:24:41.995Z,2026-04-14T22:28:04.220Z
+VAdb44f183ef2c1098,Payment Verification,6,false,false,active,2025-06-26T23:17:25.511Z,2026-04-14T22:28:04.220Z
+VA10cffdd49079fb58,User Signup,8,true,false,inactive,2024-12-04T04:32:17.463Z,2026-04-14T22:28:04.220Z
+VA85ac350e5c261d43,Phone Verification,6,true,false,active,2023-07-25T11:40:44.713Z,2026-04-14T22:28:04.220Z
+VAe64407face45a695,Verify Service 9,6,true,true,active,2024-09-16T09:09:31.025Z,2026-04-14T22:28:04.220Z
+VA088d837dfa317560,Verify Service 10,8,true,false,active,2025-12-30T18:58:31.775Z,2026-04-14T22:28:04.220Z

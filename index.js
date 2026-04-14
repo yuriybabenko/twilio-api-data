@@ -38,11 +38,6 @@ app.use(exportsRoutes);
 app.use(verifyRoutes);
 app.use(lookupRoutes);
 app.use(conversationsRoutes);
-app.use(usageRecordsRoutes);
-app.use(exportsRoutes);
-app.use(verifyRoutes);
-app.use(lookupRoutes);
-app.use(conversationsRoutes);
 
 app.get('/collection.json', (req, res) => {
   res.sendFile(path.join(__dirname, 'postman', 'twilio-dummy-api.postman_collection.json'));

@@ -182,12 +182,12 @@ function buildAvailableNumbers() {
 
 function buildMessagingServices(phoneRows) {
   const services = [];
-  for (let i = 1; i <= 5; i += 1) {
+  for (let i = 1; i <= 15; i += 1) {
     services.push({
       sid: makeSid('MG'),
       account_sid: accountSid,
       friendly_name: `Service ${i}`,
-      status: i <= 4 ? 'active' : 'inactive',
+      status: i <= 12 ? 'active' : 'inactive',
       date_created: formatIso(randomDateBetween(threeYearsAgo, dateNow)),
       date_updated: formatIso(dateNow),
       sms_url: `https://example.com/sms/${i}`,
@@ -198,35 +198,47 @@ function buildMessagingServices(phoneRows) {
 }
 
 function buildBrandAndCampaigns(services) {
-  const brandSid = makeSid('BR');
-  const brand = {
-    sid: brandSid,
-    account_sid: accountSid,
-    friendly_name: 'Acme Holdings',
-    status: 'active',
-    date_created: formatIso(randomDateBetween(threeYearsAgo, dateNow)),
-    date_updated: formatIso(dateNow),
-    company_name: 'Acme Holdings LLC',
-    ein: '12-3456789'
-  };
+  const brands = [];
+  const campaigns = [];
+  const brandNames = ['Acme Holdings', 'Global Tech Inc', 'Sunshine Retail', 'Metro Services', 'Prime Solutions'];
+  const useCases = ['marketing', 'customer_care', 'operational', 'alerts', 'onboarding', 'account_notifications', 'fraud_alerts', '2fa'];
 
-  const campaignStatuses = ['approved', 'approved', 'approved', 'rejected', 'rejected'];
-  const useCases = ['marketing', 'customer_care', 'operational', 'alerts', 'onboarding'];
+  // Create 5 brands
+  for (let b = 0; b < 5; b++) {
+    const brandSid = makeSid('BR');
+    brands.push({
+      sid: brandSid,
+      account_sid: accountSid,
+      friendly_name: brandNames[b],
+      status: b < 4 ? 'active' : 'pending',
+      date_created: formatIso(randomDateBetween(threeYearsAgo, dateNow)),
+      date_updated: formatIso(dateNow),
+      company_name: `${brandNames[b]} LLC`,
+      ein: `${10 + b}-345678${b}`
+    });
 
-  const campaigns = campaignStatuses.map((status, index) => ({
-    sid: makeSid('CB'),
-    account_sid: accountSid,
-    brand_sid: brandSid,
-    messaging_service_sid: services[index].sid,
-    friendly_name: `Campaign ${index + 1}`,
-    status,
-    use_case: useCases[index],
-    created_date: formatIso(randomDateBetween(threeYearsAgo, dateNow)),
-    description: `A ${useCases[index]} campaign for Acme Holdings.`,
-    compliance_status: status === 'approved' ? 'active' : 'rejected'
-  }));
+    // Create 3 campaigns per brand
+    for (let c = 0; c < 3; c++) {
+      const serviceIndex = (b * 3 + c) % services.length;
+      const statusRand = Math.random();
+      const status = statusRand < 0.7 ? 'approved' : statusRand < 0.85 ? 'pending' : 'rejected';
 
-  return { brand, campaigns };
+      campaigns.push({
+        sid: makeSid('CB'),
+        account_sid: accountSid,
+        brand_sid: brandSid,
+        messaging_service_sid: services[serviceIndex].sid,
+        friendly_name: `${brandNames[b]} ${useCases[c % useCases.length]} Campaign`,
+        status,
+        use_case: useCases[c % useCases.length],
+        created_date: formatIso(randomDateBetween(threeYearsAgo, dateNow)),
+        description: `A ${useCases[c % useCases.length]} campaign for ${brandNames[b]}.`,
+        compliance_status: status === 'approved' ? 'active' : status
+      });
+    }
+  }
+
+  return { brands, campaigns };
 }
 
 function buildServiceNumberAssignments(services, ownedNumbers) {
@@ -248,11 +260,12 @@ function buildServiceNumberAssignments(services, ownedNumbers) {
 
 function buildHistory(phoneNumbers, shortCodes) {
   const ownedNumbers = [...phoneNumbers, ...shortCodes];
-  const externalNumbers = Array.from({ length: 100 }, (_, i) => `+1${6000000000 + i}`);
+  const externalNumbers = Array.from({ length: 500 }, (_, i) => `+1${6000000000 + i}`);
   const messages = [];
   const calls = [];
 
-  for (let i = 0; i < 1200; i += 1) {
+  // Generate ~10,000 messages over 3 years (average ~9 per day)
+  for (let i = 0; i < 10000; i += 1) {
     const direction = Math.random() < 0.45 ? 'inbound' : 'outbound';
     const accountNumber = randomElement(ownedNumbers);
     const externalNumber = randomElement(externalNumbers);
@@ -283,7 +296,8 @@ function buildHistory(phoneNumbers, shortCodes) {
     });
   }
 
-  for (let i = 0; i < 600; i += 1) {
+  // Generate ~5,000 calls over 3 years (average ~4-5 per day)
+  for (let i = 0; i < 5000; i += 1) {
     const direction = Math.random() < 0.4 ? 'inbound' : 'outbound';
     const accountNumber = randomElement(ownedNumbers);
     const externalNumber = randomElement(externalNumbers);
@@ -357,11 +371,19 @@ function buildMessageStats(messages) {
 
 function buildOrganizations() {
   const organizations = [];
-  for (let i = 0; i < 5; i++) {
+  const orgNames = [
+    'Headquarters', 'EMEA Division', 'APAC Division', 'North America Sales',
+    'Customer Support', 'Engineering', 'Marketing', 'Operations',
+    'Product Team', 'Finance', 'Legal', 'HR Department',
+    'R&D Lab', 'Manufacturing', 'Quality Assurance'
+  ];
+
+  for (let i = 0; i < 20; i++) {
+    const statusRand = Math.random();
     organizations.push({
       sid: makeSid('OR'),
-      friendly_name: `Organization ${i + 1}`,
-      status: 'active',
+      friendly_name: i < orgNames.length ? orgNames[i] : `Organization ${i + 1}`,
+      status: statusRand < 0.8 ? 'active' : statusRand < 0.95 ? 'inactive' : 'pending',
       date_created: formatIso(randomDateBetween(threeYearsAgo, dateNow)),
       date_updated: formatIso(dateNow)
     });
@@ -371,52 +393,139 @@ function buildOrganizations() {
 
 function buildUsageRecords() {
   const records = [];
-  const categories = ['calls', 'sms', 'mms', 'totalprice'];
-  categories.forEach(category => {
-    records.push({
-      account_sid: accountSid,
-      category,
-      description: `${category} usage`,
-      start_date: '2024-01-01',
-      end_date: '2024-12-31',
-      count: Math.floor(Math.random() * 1000),
-      count_unit: category === 'totalprice' ? 'usd' : 'calls',
-      price: (Math.random() * 100).toFixed(2),
-      price_unit: 'USD',
-      usage_unit: category === 'totalprice' ? 'dollars' : 'calls'
+
+  // Expanded categories with subcategories to reach 100x data points
+  const categories = [
+    // Call categories
+    { category: 'calls', description: 'Voice calls', baseCount: 5, pricePerUnit: 0.013 },
+    { category: 'calls-inbound', description: 'Inbound calls', baseCount: 3, pricePerUnit: 0.0085 },
+    { category: 'calls-outbound', description: 'Outbound calls', baseCount: 2, pricePerUnit: 0.015 },
+    { category: 'calls-inbound-local', description: 'Inbound local calls', baseCount: 2, pricePerUnit: 0.0085 },
+    { category: 'calls-inbound-tollfree', description: 'Inbound toll-free calls', baseCount: 1, pricePerUnit: 0.022 },
+    { category: 'calls-outbound-local', description: 'Outbound local calls', baseCount: 1, pricePerUnit: 0.013 },
+    { category: 'calls-outbound-tollfree', description: 'Outbound toll-free calls', baseCount: 1, pricePerUnit: 0.019 },
+
+    // SMS categories
+    { category: 'sms', description: 'SMS messages', baseCount: 10, pricePerUnit: 0.0075 },
+    { category: 'sms-inbound', description: 'Inbound SMS', baseCount: 5, pricePerUnit: 0.0075 },
+    { category: 'sms-outbound', description: 'Outbound SMS', baseCount: 5, pricePerUnit: 0.0075 },
+    { category: 'sms-inbound-longcode', description: 'Inbound SMS longcode', baseCount: 3, pricePerUnit: 0.0075 },
+    { category: 'sms-inbound-shortcode', description: 'Inbound SMS shortcode', baseCount: 2, pricePerUnit: 0.01 },
+    { category: 'sms-outbound-longcode', description: 'Outbound SMS longcode', baseCount: 3, pricePerUnit: 0.0075 },
+    { category: 'sms-outbound-shortcode', description: 'Outbound SMS shortcode', baseCount: 2, pricePerUnit: 0.01 },
+
+    // MMS categories
+    { category: 'mms', description: 'MMS messages', baseCount: 2, pricePerUnit: 0.025 },
+    { category: 'mms-inbound', description: 'Inbound MMS', baseCount: 1, pricePerUnit: 0.025 },
+    { category: 'mms-outbound', description: 'Outbound MMS', baseCount: 1, pricePerUnit: 0.025 },
+
+    // Phone number categories
+    { category: 'phonenumbers', description: 'Phone numbers', baseCount: 50, pricePerUnit: 1.00 },
+    { category: 'phonenumbers-local', description: 'Local phone numbers', baseCount: 45, pricePerUnit: 1.00 },
+    { category: 'phonenumbers-tollfree', description: 'Toll-free numbers', baseCount: 5, pricePerUnit: 2.00 },
+    { category: 'shortcodes', description: 'Short codes', baseCount: 2, pricePerUnit: 500 },
+    { category: 'shortcodes-vanity', description: 'Vanity short codes', baseCount: 1, pricePerUnit: 1000 },
+
+    // Recording and transcription
+    { category: 'recordings', description: 'Call recordings', baseCount: 3, pricePerUnit: 0.0025 },
+    { category: 'transcriptions', description: 'Transcriptions', baseCount: 1, pricePerUnit: 0.05 },
+
+    // Verify and Lookup
+    { category: 'verify-verifications', description: 'Verify verifications', baseCount: 8, pricePerUnit: 0.05 },
+    { category: 'lookups', description: 'Lookup requests', baseCount: 5, pricePerUnit: 0.005 },
+
+    // Conversations
+    { category: 'conversations', description: 'Conversations', baseCount: 4, pricePerUnit: 0.02 },
+    { category: 'conversations-messages', description: 'Conversation messages', baseCount: 15, pricePerUnit: 0.008 },
+
+    // Total price
+    { category: 'totalprice', description: 'Total price', baseCount: 0, pricePerUnit: 0.015 }
+  ];
+
+  // Generate daily usage records for the past 3 years
+  const startDate = new Date(threeYearsAgo);
+  const endDate = new Date(dateNow);
+  const daysDiff = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24));
+
+  for (let day = 0; day < daysDiff; day++) {
+    const dayStart = new Date(startDate);
+    dayStart.setDate(startDate.getDate() + day);
+    const dayEnd = new Date(dayStart);
+    dayEnd.setDate(dayStart.getDate() + 1);
+
+    categories.forEach(catConfig => {
+      const { category, description, baseCount, pricePerUnit } = catConfig;
+      const variance = Math.floor(Math.random() * baseCount);
+      const count = baseCount + variance;
+      const price = category === 'totalprice' ? (count * pricePerUnit).toFixed(2) : (count * pricePerUnit).toFixed(4);
+
+      records.push({
+        account_sid: accountSid,
+        category,
+        description,
+        start_date: dayStart.toISOString().split('T')[0],
+        end_date: dayEnd.toISOString().split('T')[0],
+        count: count,
+        count_unit: category === 'totalprice' ? 'usd' : category,
+        price: price,
+        price_unit: 'USD',
+        usage_unit: category === 'totalprice' ? 'dollars' : category
+      });
     });
-  });
+  }
+
   return records;
 }
 
 function buildExports() {
   const exports = [];
-  const types = ['messages', 'calls'];
-  types.forEach(type => {
-    exports.push({
-      sid: makeSid('EX'),
-      status: 'completed',
-      resource_type: type,
-      start_day: '2024-01-01',
-      end_day: '2024-12-31',
-      url: `https://example.com/export/${type}.zip`,
-      date_created: formatIso(randomDateBetween(threeYearsAgo, dateNow)),
-      date_updated: formatIso(dateNow)
+  const types = ['messages', 'calls', 'verifications'];
+  const statuses = ['completed', 'completed', 'completed', 'completed', 'failed', 'in_progress'];
+
+  // Generate ~50 exports over 3 years (quarterly exports for each type)
+  const startDate = new Date(threeYearsAgo);
+  for (let quarter = 0; quarter < 12; quarter++) {
+    const quarterStart = new Date(startDate);
+    quarterStart.setMonth(startDate.getMonth() + quarter * 3);
+    const quarterEnd = new Date(quarterStart);
+    quarterEnd.setMonth(quarterStart.getMonth() + 3);
+    quarterEnd.setDate(0);
+
+    types.forEach(type => {
+      const status = randomElement(statuses);
+      exports.push({
+        sid: makeSid('EX'),
+        status: status,
+        resource_type: type,
+        start_day: quarterStart.toISOString().split('T')[0],
+        end_day: quarterEnd.toISOString().split('T')[0],
+        url: status === 'completed' ? `https://example.com/export/${type}-${quarter}.zip` : '',
+        date_created: formatIso(randomDateBetween(quarterStart, quarterEnd)),
+        date_updated: formatIso(dateNow)
+      });
     });
-  });
+  }
+
   return exports;
 }
 
 function buildVerifyServices() {
   const services = [];
-  for (let i = 0; i < 3; i++) {
+  const serviceNames = [
+    'Login Verification', '2FA Service', 'Transaction Approval',
+    'Password Reset', 'Account Recovery', 'Payment Verification',
+    'User Signup', 'Phone Verification'
+  ];
+
+  for (let i = 0; i < 10; i++) {
+    const statusRand = Math.random();
     services.push({
       sid: makeSid('VA'),
-      friendly_name: `Verify Service ${i + 1}`,
-      code_length: 6,
-      lookup_enabled: 'true',
-      psd2_enabled: 'false',
-      status: 'active',
+      friendly_name: i < serviceNames.length ? serviceNames[i] : `Verify Service ${i + 1}`,
+      code_length: [4, 6, 6, 6, 8][Math.floor(Math.random() * 5)],
+      lookup_enabled: Math.random() < 0.7 ? 'true' : 'false',
+      psd2_enabled: Math.random() < 0.3 ? 'true' : 'false',
+      status: statusRand < 0.9 ? 'active' : 'inactive',
       date_created: formatIso(randomDateBetween(threeYearsAgo, dateNow)),
       date_updated: formatIso(dateNow)
     });
@@ -426,18 +535,25 @@ function buildVerifyServices() {
 
 function buildVerifyVerifications(services) {
   const verifications = [];
+  const channels = ['sms', 'call', 'email'];
+  const statuses = ['approved', 'approved', 'approved', 'pending', 'canceled', 'expired'];
+
+  // Generate ~2000 verifications over 3 years (~2 per day)
   services.forEach(service => {
-    for (let i = 0; i < 5; i++) {
+    const verificationCount = Math.floor(200 + Math.random() * 100);
+    for (let i = 0; i < verificationCount; i++) {
+      const created = randomDateBetween(threeYearsAgo, dateNow);
+      const status = randomElement(statuses);
       verifications.push({
         sid: makeSid('VE'),
         service_sid: service.sid,
         account_sid: accountSid,
         to: `+1${Math.floor(Math.random() * 9000000000) + 1000000000}`,
-        channel: 'sms',
-        status: ['pending', 'approved', 'canceled'][Math.floor(Math.random() * 3)],
-        valid: 'true',
-        date_created: formatIso(randomDateBetween(threeYearsAgo, dateNow)),
-        date_updated: formatIso(dateNow)
+        channel: randomElement(channels),
+        status: status,
+        valid: status === 'approved' ? 'true' : 'false',
+        date_created: formatIso(created),
+        date_updated: formatIso(new Date(created.getTime() + Math.random() * 3600000))
       });
     }
   });
@@ -446,14 +562,26 @@ function buildVerifyVerifications(services) {
 
 function buildConversations() {
   const conversations = [];
-  for (let i = 0; i < 10; i++) {
+  const states = ['active', 'active', 'active', 'inactive', 'closed'];
+  const conversationTopics = [
+    'Customer Support', 'Sales Inquiry', 'Technical Support', 'Billing Question',
+    'Product Feedback', 'Order Status', 'Account Help', 'Feature Request',
+    'Bug Report', 'General Inquiry', 'Partnership Discussion', 'Complaint Resolution'
+  ];
+
+  // Generate ~150 conversations over 3 years
+  for (let i = 0; i < 150; i++) {
+    const created = randomDateBetween(threeYearsAgo, dateNow);
+    const state = randomElement(states);
     conversations.push({
       sid: makeSid('CH'),
       account_sid: accountSid,
-      friendly_name: `Conversation ${i + 1}`,
-      state: 'active',
-      date_created: formatIso(randomDateBetween(threeYearsAgo, dateNow)),
-      date_updated: formatIso(dateNow)
+      friendly_name: i < conversationTopics.length * 12
+        ? `${conversationTopics[i % conversationTopics.length]} #${Math.floor(i / conversationTopics.length) + 1}`
+        : `Conversation ${i + 1}`,
+      state: state,
+      date_created: formatIso(created),
+      date_updated: formatIso(state === 'closed' ? new Date(created.getTime() + Math.random() * 86400000 * 30) : dateNow)
     });
   }
   return conversations;
@@ -566,7 +694,7 @@ function generateCsvData() {
   writeCsv('short_codes.csv', ['sid', 'account_sid', 'friendly_name', 'phone_number', 'country_code', 'phone_number_type', 'capabilities', 'sms_enabled', 'voice_enabled', 'verified', 'date_created', 'date_updated'], shortCodes);
   writeCsv('available_phone_numbers.csv', ['friendly_name', 'phone_number', 'region', 'iso_country', 'lata', 'rate_center', 'latitude', 'longitude', 'address_requirements'], availableNumbers);
   writeCsv('messaging_services.csv', ['sid', 'account_sid', 'friendly_name', 'status', 'date_created', 'date_updated', 'sms_url', 'price_unit'], services);
-  writeCsv('brands.csv', ['sid', 'account_sid', 'friendly_name', 'company_name', 'status', 'date_created', 'date_updated', 'ein'], [brandPackage.brand]);
+  writeCsv('brands.csv', ['sid', 'account_sid', 'friendly_name', 'company_name', 'status', 'date_created', 'date_updated', 'ein'], brandPackage.brands);
   writeCsv('campaigns.csv', ['sid', 'account_sid', 'brand_sid', 'messaging_service_sid', 'friendly_name', 'status', 'use_case', 'created_date', 'description', 'compliance_status'], brandPackage.campaigns);
   writeCsv('service_numbers.csv', ['messaging_service_sid', 'phone_number', 'phone_number_sid'], serviceNumberAssignments);
   writeCsv('messages.csv', ['sid', 'account_sid', 'date_created', 'date_updated', 'date_sent', 'from', 'to', 'body', 'status', 'direction', 'num_segments', 'price', 'price_unit', 'uri', 'subresource_uris'], history.messages);
@@ -628,6 +756,18 @@ function generateCsvData() {
   const callsCsv = fs.readFileSync(path.join(dataDir, 'calls.csv'), 'utf8').trim().split('\n');
   const callSid = callsCsv[1].split(',')[0];
 
+  const exportsCsv = fs.readFileSync(path.join(dataDir, 'exports.csv'), 'utf8').trim().split('\n');
+  const exportSid = exportsCsv[1].split(',')[0];
+
+  const organizationsCsv = fs.readFileSync(path.join(dataDir, 'organizations.csv'), 'utf8').trim().split('\n');
+  const organizationSid = organizationsCsv[1].split(',')[0];
+
+  const verifyServicesCsv = fs.readFileSync(path.join(dataDir, 'verify_services.csv'), 'utf8').trim().split('\n');
+  const serviceSid = verifyServicesCsv[1].split(',')[0];
+
+  const conversationsCsv = fs.readFileSync(path.join(dataDir, 'conversations.csv'), 'utf8').trim().split('\n');
+  const conversationSid = conversationsCsv[1].split(',')[0];
+
   // Update variables
   collection.variable = [
     { key: 'baseUrl', value: collectionBaseUrl },
@@ -637,261 +777,14 @@ function generateCsvData() {
     { key: 'incomingPhoneNumberSid', value: incomingPhoneNumberSid },
     { key: 'messagingServiceSid', value: messagingServiceSid },
     { key: 'messageSid', value: messageSid },
-    { key: 'callSid', value: callSid }
+    { key: 'callSid', value: callSid },
+    { key: 'exportSid', value: exportSid },
+    { key: 'organizationSid', value: organizationSid },
+    { key: 'serviceSid', value: serviceSid },
+    { key: 'conversationSid', value: conversationSid }
   ];
 
-  // Add new API requests to the collection
-  const newItems = [
-    {
-      name: 'Organizations',
-      item: [
-        {
-          name: 'List Organizations',
-          request: {
-            method: 'GET',
-            header: [],
-            url: {
-              raw: '{{baseUrl}}/v1/Organizations',
-              host: ['{{baseUrl}}'],
-              path: ['v1', 'Organizations']
-            }
-          }
-        },
-        {
-          name: 'Create Organization',
-          request: {
-            method: 'POST',
-            header: [],
-            url: {
-              raw: '{{baseUrl}}/v1/Organizations',
-              host: ['{{baseUrl}}'],
-              path: ['v1', 'Organizations']
-            }
-          }
-        }
-      ]
-    },
-    {
-      name: 'Usage Records',
-      item: [
-        {
-          name: 'List Usage Records',
-          request: {
-            method: 'GET',
-            header: [],
-            url: {
-              raw: '{{baseUrl}}/2010-04-01/Accounts/{{accountSid}}/Usage/Records',
-              host: ['{{baseUrl}}'],
-              path: ['2010-04-01', 'Accounts', '{{accountSid}}', 'Usage', 'Records']
-            }
-          }
-        },
-        {
-          name: 'List Usage Records by Category',
-          request: {
-            method: 'GET',
-            header: [],
-            url: {
-              raw: '{{baseUrl}}/2010-04-01/Accounts/{{accountSid}}/Usage/Records/calls',
-              host: ['{{baseUrl}}'],
-              path: ['2010-04-01', 'Accounts', '{{accountSid}}', 'Usage', 'Records', 'calls']
-            }
-          }
-        },
-        {
-          name: 'List Usage Records Today',
-          request: {
-            method: 'GET',
-            header: [],
-            url: {
-              raw: '{{baseUrl}}/2010-04-01/Accounts/{{accountSid}}/Usage/Records/Today',
-              host: ['{{baseUrl}}'],
-              path: ['2010-04-01', 'Accounts', '{{accountSid}}', 'Usage', 'Records', 'Today']
-            }
-          }
-        },
-        {
-          name: 'List Usage Records Yesterday',
-          request: {
-            method: 'GET',
-            header: [],
-            url: {
-              raw: '{{baseUrl}}/2010-04-01/Accounts/{{accountSid}}/Usage/Records/Yesterday',
-              host: ['{{baseUrl}}'],
-              path: ['2010-04-01', 'Accounts', '{{accountSid}}', 'Usage', 'Records', 'Yesterday']
-            }
-          }
-        },
-        {
-          name: 'List Usage Records This Month',
-          request: {
-            method: 'GET',
-            header: [],
-            url: {
-              raw: '{{baseUrl}}/2010-04-01/Accounts/{{accountSid}}/Usage/Records/ThisMonth',
-              host: ['{{baseUrl}}'],
-              path: ['2010-04-01', 'Accounts', '{{accountSid}}', 'Usage', 'Records', 'ThisMonth']
-            }
-          }
-        },
-        {
-          name: 'List Usage Records Last Month',
-          request: {
-            method: 'GET',
-            header: [],
-            url: {
-              raw: '{{baseUrl}}/2010-04-01/Accounts/{{accountSid}}/Usage/Records/LastMonth',
-              host: ['{{baseUrl}}'],
-              path: ['2010-04-01', 'Accounts', '{{accountSid}}', 'Usage', 'Records', 'LastMonth']
-            }
-          }
-        },
-        {
-          name: 'List Usage Records This Year',
-          request: {
-            method: 'GET',
-            header: [],
-            url: {
-              raw: '{{baseUrl}}/2010-04-01/Accounts/{{accountSid}}/Usage/Records/ThisYear',
-              host: ['{{baseUrl}}'],
-              path: ['2010-04-01', 'Accounts', '{{accountSid}}', 'Usage', 'Records', 'ThisYear']
-            }
-          }
-        },
-        {
-          name: 'List Usage Records Last Year',
-          request: {
-            method: 'GET',
-            header: [],
-            url: {
-              raw: '{{baseUrl}}/2010-04-01/Accounts/{{accountSid}}/Usage/Records/LastYear',
-              host: ['{{baseUrl}}'],
-              path: ['2010-04-01', 'Accounts', '{{accountSid}}', 'Usage', 'Records', 'LastYear']
-            }
-          }
-        }
-      ]
-    },
-    {
-      name: 'Bulk Export',
-      item: [
-        {
-          name: 'Create Export',
-          request: {
-            method: 'POST',
-            header: [],
-            url: {
-              raw: '{{baseUrl}}/v1/Exports',
-              host: ['{{baseUrl}}'],
-              path: ['v1', 'Exports']
-            }
-          }
-        },
-        {
-          name: 'List Exports',
-          request: {
-            method: 'GET',
-            header: [],
-            url: {
-              raw: '{{baseUrl}}/v1/Exports',
-              host: ['{{baseUrl}}'],
-              path: ['v1', 'Exports']
-            }
-          }
-        }
-      ]
-    },
-    {
-      name: 'Verify',
-      item: [
-        {
-          name: 'List Services',
-          request: {
-            method: 'GET',
-            header: [],
-            url: {
-              raw: '{{baseUrl}}/v2/Services',
-              host: ['{{baseUrl}}'],
-              path: ['v2', 'Services']
-            }
-          }
-        },
-        {
-          name: 'Create Service',
-          request: {
-            method: 'POST',
-            header: [],
-            url: {
-              raw: '{{baseUrl}}/v2/Services',
-              host: ['{{baseUrl}}'],
-              path: ['v2', 'Services']
-            }
-          }
-        },
-        {
-          name: 'Create Verification',
-          request: {
-            method: 'POST',
-            header: [],
-            url: {
-              raw: '{{baseUrl}}/v2/Services/{{serviceSid}}/Verifications',
-              host: ['{{baseUrl}}'],
-              path: ['v2', 'Services', '{{serviceSid}}', 'Verifications']
-            }
-          }
-        }
-      ]
-    },
-    {
-      name: 'Lookup',
-      item: [
-        {
-          name: 'Lookup Phone Number',
-          request: {
-            method: 'GET',
-            header: [],
-            url: {
-              raw: '{{baseUrl}}/v1/PhoneNumbers/+15551234567',
-              host: ['{{baseUrl}}'],
-              path: ['v1', 'PhoneNumbers', '+15551234567']
-            }
-          }
-        }
-      ]
-    },
-    {
-      name: 'Conversations',
-      item: [
-        {
-          name: 'List Conversations',
-          request: {
-            method: 'GET',
-            header: [],
-            url: {
-              raw: '{{baseUrl}}/v1/Conversations',
-              host: ['{{baseUrl}}'],
-              path: ['v1', 'Conversations']
-            }
-          }
-        },
-        {
-          name: 'Create Conversation',
-          request: {
-            method: 'POST',
-            header: [],
-            url: {
-              raw: '{{baseUrl}}/v1/Conversations',
-              host: ['{{baseUrl}}'],
-              path: ['v1', 'Conversations']
-            }
-          }
-        }
-      ]
-    }
-  ];
-
-  collection.item.push(...newItems);
-
+  // Update walkItems function to normalize URLs
   walkItems(collection.item || []);
 
   fs.writeFileSync(postmanPath, JSON.stringify(collection, null, 2), 'utf8');
@@ -900,6 +793,20 @@ function generateCsvData() {
   console.log('Account SID:', accountSid);
   console.log('Auth Token:', authToken);
   console.log('Updated Postman collection variables');
+  console.log('');
+  console.log('Data Summary:');
+  console.log('- Phone Numbers:', phonePackage.all.length);
+  console.log('- Messages:', history.messages.length);
+  console.log('- Calls:', history.calls.length);
+  console.log('- Messaging Services:', services.length);
+  console.log('- Brands:', brandPackage.brands.length);
+  console.log('- Campaigns:', brandPackage.campaigns.length);
+  console.log('- Organizations:', organizations.length);
+  console.log('- Usage Records:', usageRecords.length);
+  console.log('- Exports:', exports.length);
+  console.log('- Verify Services:', verifyServices.length);
+  console.log('- Verifications:', verifyVerifications.length);
+  console.log('- Conversations:', conversations.length);
 }
 
 function ensureDataFiles() {

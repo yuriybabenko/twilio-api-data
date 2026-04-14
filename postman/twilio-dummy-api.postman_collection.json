@@ -587,6 +587,36 @@
           ]
         },
         {
+          "name": "Get Brand",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/v1/Brands/{{brandSid}}.json",
+              "host": [
+                "http://localhost:3000"
+              ],
+              "path": [
+                "v1",
+                "Brands",
+                "{{brandSid}}.json"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                  "pm.test('Response is valid JSON', function () { pm.response.to.be.json; });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
           "name": "List Brand Campaigns",
           "request": {
             "method": "GET",
@@ -692,70 +722,6 @@
       ]
     },
     {
-      "name": "Organizations",
-      "item": [
-        {
-          "name": "List Organizations",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:3000/v1/Organizations",
-              "host": [
-                "http://localhost:3000"
-              ],
-              "path": [
-                "v1",
-                "Organizations"
-              ]
-            }
-          }
-        },
-        {
-          "name": "Create Organization",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:3000/v1/Organizations",
-              "host": [
-                "http://localhost:3000"
-              ],
-              "path": [
-                "v1",
-                "Organizations"
-              ]
-            }
-          }
-        }
-      ]
-    },
-    {
-      "name": "Usage Records",
-      "item": [
-        {
-          "name": "List Usage Records",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:3000/2010-04-01/Accounts/{{accountSid}}/Usage/Records",
-              "host": [
-                "http://localhost:3000"
-              ],
-              "path": [
-                "2010-04-01",
-                "Accounts",
-                "{{accountSid}}",
-                "Usage",
-                "Records"
-              ]
-            }
-          }
-        }
-      ]
-    },
-    {
       "name": "Bulk Export",
       "item": [
         {
@@ -791,123 +757,21 @@
               ]
             }
           }
-        }
-      ]
-    },
-    {
-      "name": "Verify",
-      "item": [
+        },
         {
-          "name": "List Services",
+          "name": "Get Export",
           "request": {
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3000/v2/Services",
-              "host": [
-                "http://localhost:3000"
-              ],
-              "path": [
-                "v2",
-                "Services"
-              ]
-            }
-          }
-        },
-        {
-          "name": "Create Service",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:3000/v2/Services",
-              "host": [
-                "http://localhost:3000"
-              ],
-              "path": [
-                "v2",
-                "Services"
-              ]
-            }
-          }
-        },
-        {
-          "name": "Create Verification",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:3000/v2/Services/{{serviceSid}}/Verifications",
-              "host": [
-                "http://localhost:3000"
-              ],
-              "path": [
-                "v2",
-                "Services",
-                "{{serviceSid}}",
-                "Verifications"
-              ]
-            }
-          }
-        }
-      ]
-    },
-    {
-      "name": "Lookup",
-      "item": [
-        {
-          "name": "Lookup Phone Number",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:3000/v1/PhoneNumbers/+15551234567",
+              "raw": "http://localhost:3000/v1/Exports/{{exportSid}}",
               "host": [
                 "http://localhost:3000"
               ],
               "path": [
                 "v1",
-                "PhoneNumbers",
-                "+15551234567"
-              ]
-            }
-          }
-        }
-      ]
-    },
-    {
-      "name": "Conversations",
-      "item": [
-        {
-          "name": "List Conversations",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:3000/v1/Conversations",
-              "host": [
-                "http://localhost:3000"
-              ],
-              "path": [
-                "v1",
-                "Conversations"
-              ]
-            }
-          }
-        },
-        {
-          "name": "Create Conversation",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:3000/v1/Conversations",
-              "host": [
-                "http://localhost:3000"
-              ],
-              "path": [
-                "v1",
-                "Conversations"
+                "Exports",
+                "{{exportSid}}"
               ]
             }
           }
@@ -947,6 +811,24 @@
               "path": [
                 "v1",
                 "Organizations"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Organization",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/v1/Organizations/{{organizationSid}}",
+              "host": [
+                "http://localhost:3000"
+              ],
+              "path": [
+                "v1",
+                "Organizations",
+                "{{organizationSid}}"
               ]
             }
           }
@@ -1126,45 +1008,6 @@
       ]
     },
     {
-      "name": "Bulk Export",
-      "item": [
-        {
-          "name": "Create Export",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:3000/v1/Exports",
-              "host": [
-                "http://localhost:3000"
-              ],
-              "path": [
-                "v1",
-                "Exports"
-              ]
-            }
-          }
-        },
-        {
-          "name": "List Exports",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:3000/v1/Exports",
-              "host": [
-                "http://localhost:3000"
-              ],
-              "path": [
-                "v1",
-                "Exports"
-              ]
-            }
-          }
-        }
-      ]
-    },
-    {
       "name": "Verify",
       "item": [
         {
@@ -1202,9 +1045,46 @@
           }
         },
         {
+          "name": "Get Service",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/v2/Services/{{serviceSid}}",
+              "host": [
+                "http://localhost:3000"
+              ],
+              "path": [
+                "v2",
+                "Services",
+                "{{serviceSid}}"
+              ]
+            }
+          }
+        },
+        {
           "name": "Create Verification",
           "request": {
             "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/v2/Services/{{serviceSid}}/Verifications",
+              "host": [
+                "http://localhost:3000"
+              ],
+              "path": [
+                "v2",
+                "Services",
+                "{{serviceSid}}",
+                "Verifications"
+              ]
+            }
+          }
+        },
+        {
+          "name": "List Verifications",
+          "request": {
+            "method": "GET",
             "header": [],
             "url": {
               "raw": "http://localhost:3000/v2/Services/{{serviceSid}}/Verifications",
@@ -1281,6 +1161,24 @@
               ]
             }
           }
+        },
+        {
+          "name": "Get Conversation",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/v1/Conversations/{{conversationSid}}",
+              "host": [
+                "http://localhost:3000"
+              ],
+              "path": [
+                "v1",
+                "Conversations",
+                "{{conversationSid}}"
+              ]
+            }
+          }
         }
       ]
     }
@@ -1292,31 +1190,47 @@
     },
     {
       "key": "accountSid",
-      "value": "ACcb44e59a6e8bf77b6329094c5a4db011"
+      "value": "AC643664f446fab60de6961658e69b929a"
     },
     {
       "key": "brandSid",
-      "value": "BR5d6fbb1fd33a97a0"
+      "value": "BRf5f3a7c5885c9a35"
     },
     {
       "key": "campaignSid",
-      "value": "CB77e420b23ee68e29"
+      "value": "CB3193778dcb3fb999"
     },
     {
       "key": "incomingPhoneNumberSid",
-      "value": "PNf61454b2daf9c4f2"
+      "value": "PN247c17ad3041219a"
     },
     {
       "key": "messagingServiceSid",
-      "value": "MG0f2c3a4ff4d55395"
+      "value": "MG5a48803b2e76b381"
     },
     {
       "key": "messageSid",
-      "value": "SM571f7b9848992b6d"
+      "value": "SM69a69b375813c4b9"
     },
     {
       "key": "callSid",
-      "value": "CA6091f8355c772ad2"
+      "value": "CAa755bc56d22f4c9b"
+    },
+    {
+      "key": "exportSid",
+      "value": "EXc25086f93c87d21a"
+    },
+    {
+      "key": "organizationSid",
+      "value": "OR8976bf3d1b4fbb82"
+    },
+    {
+      "key": "serviceSid",
+      "value": "VAb5ed1fa6b256a34d"
+    },
+    {
+      "key": "conversationSid",
+      "value": "CHbadd26623c84d914"
     }
   ]
 }

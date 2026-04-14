@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { usageRecords } = require('../lib/data');
+const { usageRecords, account } = require('../lib/data');
 const { paginate, accountMismatch } = require('../lib/utils');
 
 function filterRecords(records, query) {
@@ -19,7 +19,7 @@ function filterRecords(records, query) {
 }
 
 router.get('/2010-04-01/Accounts/:AccountSid/Usage/Records', (req, res) => {
-  if (accountMismatch(res, req.params.AccountSid)) return;
+  if (accountMismatch(res, req.params.AccountSid, account.sid)) return;
   let records = usageRecords;
   records = filterRecords(records, req.query);
   const result = paginate(req, records, 'usage_records');
@@ -27,7 +27,7 @@ router.get('/2010-04-01/Accounts/:AccountSid/Usage/Records', (req, res) => {
 });
 
 router.get('/2010-04-01/Accounts/:AccountSid/Usage/Records/:Category', (req, res) => {
-  if (accountMismatch(res, req.params.AccountSid)) return;
+  if (accountMismatch(res, req.params.AccountSid, account.sid)) return;
   let records = usageRecords;
   if (req.params.Category) {
     if (['calls', 'sms', 'mms', 'totalprice'].includes(req.params.Category)) {

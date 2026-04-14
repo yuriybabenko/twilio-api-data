@@ -34,11 +34,17 @@ function renderVariableField(variable) {
   variablesEl.appendChild(col);
 }
 
+function isListEndpoint(requestName) {
+  const listKeywords = ['List', 'Search Available'];
+  return listKeywords.some(keyword => requestName?.includes(keyword));
+}
+
 function renderRequest(item, groupId) {
   const wrapper = document.createElement('div');
   wrapper.className = 'card mb-3 card-request';
 
   const method = item.request.method || 'GET';
+  const isListRequest = isListEndpoint(item.name);
 
   wrapper.innerHTML = `
     <div class="card-body">
@@ -52,47 +58,148 @@ function renderRequest(item, groupId) {
       <div class="mb-3">
         <div class="form-text">${item.request.description || ''}</div>
       </div>
-      <div class="response-box" data-response-for="${item.name || item.request.url?.raw}">Loading request response when sent...</div>
+      <div class="response-container">
+        <div class="response-box" data-response-for="${item.name || item.request.url?.raw}">Loading request response when sent...</div>
+        ${isListRequest ? '<div class="load-more-container mt-3" style="display: none;"><button class="btn btn-sm btn-outline-primary load-more-btn">Load More</button></div>' : ''}
+      </div>
     </div>
   `;
 
   const sendButton = wrapper.querySelector('.send-request');
   const responseBox = wrapper.querySelector('.response-box');
+  const loadMoreContainer = wrapper.querySelector('.load-more-container');
+  const loadMoreBtn = wrapper.querySelector('.load-more-btn');
+
+  let currentData = null;
+  let nextPageUri = null;
+  let allRecords = [];
+
+  async function fetchData(url) {
+    const response = await fetch(url, { method });
+    const contentType = response.headers.get('content-type') || '';
+    const bodyText = await response.text();
+    let output;
+
+    if (contentType.includes('application/json')) {
+      try {
+        output = JSON.parse(bodyText);
+      } catch {
+        output = bodyText;
+      }
+    } else {
+      try {
+        output = JSON.parse(bodyText);
+      } catch {
+        output = bodyText;
+      }
+    }
+
+    return output;
+  }
+
+  function displayData(data, append = false) {
+    if (typeof data === 'object' && data !== null) {
+      // Check if this is a paginated response
+      const dataKeys = Object.keys(data);
+      const collectionKey = dataKeys.find(key =>
+        Array.isArray(data[key]) &&
+        !['query', 'variable'].includes(key) &&
+        key !== 'uri' &&
+        key !== 'first_page_uri'
+      );
+
+      if (collectionKey && data.next_page_uri !== undefined) {
+        // This is a paginated response
+        const newRecords = data[collectionKey];
+
+        if (append) {
+          allRecords = [...allRecords, ...newRecords];
+        } else {
+          allRecords = newRecords;
+        }
+
+        // Create display data with accumulated records
+        const displayData = {
+          ...data,
+          [collectionKey]: allRecords,
+          _metadata: {
+            current_page_count: newRecords.length,
+            total_loaded: allRecords.length,
+            has_more: !!data.next_page_uri
+          }
+        };
+
+        responseBox.textContent = JSON.stringify(displayData, null, 2);
+
+        // Show/hide load more button
+        if (data.next_page_uri && isListRequest && loadMoreContainer) {
+          nextPageUri = data.next_page_uri;
+          loadMoreContainer.style.display = 'block';
+          loadMoreBtn.disabled = false;
+          loadMoreBtn.textContent = `Load More (${allRecords.length} loaded)`;
+        } else if (loadMoreContainer) {
+          loadMoreContainer.style.display = 'none';
+        }
+      } else {
+        responseBox.textContent = JSON.stringify(data, null, 2);
+        if (loadMoreContainer) {
+          loadMoreContainer.style.display = 'none';
+        }
+      }
+    } else {
+      responseBox.textContent = data;
+      if (loadMoreContainer) {
+        loadMoreContainer.style.display = 'none';
+      }
+    }
+  }
 
   sendButton.addEventListener('click', async () => {
     responseBox.textContent = 'Sending request...';
+    if (loadMoreContainer) {
+      loadMoreContainer.style.display = 'none';
+    }
+    allRecords = [];
+    nextPageUri = null;
+
     console.log('variables:', variables);
     try {
       const url = formatRequestUrl(item.request);
       console.log('Fetching URL:', url);
-      const response = await fetch(url, { method });
-      const contentType = response.headers.get('content-type') || '';
-      const bodyText = await response.text();
-      let output;
 
-      if (contentType.includes('application/json')) {
-        try {
-          output = JSON.parse(bodyText);
-        } catch {
-          output = bodyText;
-        }
-      } else {
-        try {
-          output = JSON.parse(bodyText);
-        } catch {
-          output = bodyText;
-        }
-      }
-
-      if (typeof output === 'object') {
-        responseBox.textContent = JSON.stringify(output, null, 2);
-      } else {
-        responseBox.textContent = output;
-      }
+      const data = await fetchData(url);
+      currentData = data;
+      displayData(data, false);
     } catch (err) {
       responseBox.textContent = `Request failed: ${err.message}`;
+      if (loadMoreContainer) {
+        loadMoreContainer.style.display = 'none';
+      }
     }
   });
+
+  if (loadMoreBtn) {
+    loadMoreBtn.addEventListener('click', async () => {
+      if (!nextPageUri) return;
+
+      loadMoreBtn.disabled = true;
+      loadMoreBtn.textContent = 'Loading...';
+
+      try {
+        // Build the full URL from the next_page_uri
+        const baseUrl = variables['baseUrl'] || window.location.origin;
+        const fullUrl = nextPageUri.startsWith('http') ? nextPageUri : `${baseUrl}${nextPageUri}`;
+        console.log('Loading more from:', fullUrl);
+
+        const data = await fetchData(fullUrl);
+        currentData = data;
+        displayData(data, true);
+      } catch (err) {
+        responseBox.textContent += `\n\nLoad more failed: ${err.message}`;
+        loadMoreContainer.style.display = 'none';
+      }
+    });
+  }
 
   return wrapper;
 }
