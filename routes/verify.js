@@ -3,7 +3,7 @@ const router = express.Router();
 const { verifyServices, verifyVerifications } = require('../lib/data');
 const { paginate } = require('../lib/utils');
 
-router.get('/v2/Services', (req, res) => {
+router.get('/v2/Services.json', (req, res) => {
   const result = paginate(req, verifyServices, 'services');
   res.json(result);
 });
@@ -22,7 +22,7 @@ router.post('/v2/Services', (req, res) => {
   res.json(newService);
 });
 
-router.get('/v2/Services/:ServiceSid', (req, res) => {
+router.get('/v2/Services/:ServiceSid.json', (req, res) => {
   const service = verifyServices.find(s => s.sid === req.params.ServiceSid);
   if (!service) return res.status(404).json({ code: 20404, message: 'Service not found' });
   res.json(service);
@@ -43,7 +43,7 @@ router.post('/v2/Services/:ServiceSid/Verifications', (req, res) => {
   res.json(verification);
 });
 
-router.get('/v2/Services/:ServiceSid/Verifications', (req, res) => {
+router.get('/v2/Services/:ServiceSid/Verifications.json', (req, res) => {
   const verifications = verifyVerifications.filter(v => v.service_sid === req.params.ServiceSid);
   const result = paginate(req, verifications, 'verifications');
   res.json(result);

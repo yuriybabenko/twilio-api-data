@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/v1/PhoneNumbers/:PhoneNumber', (req, res) => {
+router.get('/v1/PhoneNumbers/:PhoneNumber.json', (req, res) => {
   const phoneNumber = req.params.PhoneNumber;
   res.json({
     phone_number: phoneNumber,

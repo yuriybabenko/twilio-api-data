@@ -189,6 +189,8 @@ On first startup, the server automatically generates data files if they don't ex
 npm run generate
 ```
 
+**⚠️ Important**: The server caches all CSV data at startup. If you regenerate data while the server is running, you must restart the server to load the new data and AccountSid. The regeneration script will update the Postman collection automatically, but the running server won't pick up changes until restart.
+
 ## Browser UI
 
 Navigate to http://localhost:3000 to access the browser-based interface. Features include:

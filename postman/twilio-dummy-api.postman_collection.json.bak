@@ -747,13 +747,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3000/v1/Exports.json",
+              "raw": "http://localhost:3000/v1/Exports",
               "host": [
                 "http://localhost:3000"
               ],
               "path": [
                 "v1",
-                "Exports.json"
+                "Exports"
               ]
             }
           }
@@ -764,14 +764,14 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3000/v1/Exports/{{exportSid}}.json",
+              "raw": "http://localhost:3000/v1/Exports/{{exportSid}}",
               "host": [
                 "http://localhost:3000"
               ],
               "path": [
                 "v1",
                 "Exports",
-                "{{exportSid}}.json"
+                "{{exportSid}}"
               ]
             }
           }
@@ -787,13 +787,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3000/v1/Organizations.json",
+              "raw": "http://localhost:3000/v1/Organizations",
               "host": [
                 "http://localhost:3000"
               ],
               "path": [
                 "v1",
-                "Organizations.json"
+                "Organizations"
               ]
             }
           }
@@ -821,14 +821,14 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3000/v1/Organizations/{{organizationSid}}.json",
+              "raw": "http://localhost:3000/v1/Organizations/{{organizationSid}}",
               "host": [
                 "http://localhost:3000"
               ],
               "path": [
                 "v1",
                 "Organizations",
-                "{{organizationSid}}.json"
+                "{{organizationSid}}"
               ]
             }
           }
@@ -885,7 +885,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3000/2010-04-01/Accounts/{{accountSid}}/Usage/Records/Today.json",
+              "raw": "http://localhost:3000/2010-04-01/Accounts/{{accountSid}}/Usage/Records/Today",
               "host": [
                 "http://localhost:3000"
               ],
@@ -895,7 +895,7 @@
                 "{{accountSid}}",
                 "Usage",
                 "Records",
-                "Today.json"
+                "Today"
               ]
             }
           }
@@ -906,7 +906,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3000/2010-04-01/Accounts/{{accountSid}}/Usage/Records/Yesterday.json",
+              "raw": "http://localhost:3000/2010-04-01/Accounts/{{accountSid}}/Usage/Records/Yesterday",
               "host": [
                 "http://localhost:3000"
               ],
@@ -916,7 +916,7 @@
                 "{{accountSid}}",
                 "Usage",
                 "Records",
-                "Yesterday.json"
+                "Yesterday"
               ]
             }
           }
@@ -927,7 +927,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3000/2010-04-01/Accounts/{{accountSid}}/Usage/Records/ThisMonth.json",
+              "raw": "http://localhost:3000/2010-04-01/Accounts/{{accountSid}}/Usage/Records/ThisMonth",
               "host": [
                 "http://localhost:3000"
               ],
@@ -937,7 +937,7 @@
                 "{{accountSid}}",
                 "Usage",
                 "Records",
-                "ThisMonth.json"
+                "ThisMonth"
               ]
             }
           }
@@ -948,7 +948,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3000/2010-04-01/Accounts/{{accountSid}}/Usage/Records/LastMonth.json",
+              "raw": "http://localhost:3000/2010-04-01/Accounts/{{accountSid}}/Usage/Records/LastMonth",
               "host": [
                 "http://localhost:3000"
               ],
@@ -958,7 +958,7 @@
                 "{{accountSid}}",
                 "Usage",
                 "Records",
-                "LastMonth.json"
+                "LastMonth"
               ]
             }
           }
@@ -969,7 +969,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3000/2010-04-01/Accounts/{{accountSid}}/Usage/Records/ThisYear.json",
+              "raw": "http://localhost:3000/2010-04-01/Accounts/{{accountSid}}/Usage/Records/ThisYear",
               "host": [
                 "http://localhost:3000"
               ],
@@ -979,7 +979,7 @@
                 "{{accountSid}}",
                 "Usage",
                 "Records",
-                "ThisYear.json"
+                "ThisYear"
               ]
             }
           }
@@ -990,7 +990,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3000/2010-04-01/Accounts/{{accountSid}}/Usage/Records/LastYear.json",
+              "raw": "http://localhost:3000/2010-04-01/Accounts/{{accountSid}}/Usage/Records/LastYear",
               "host": [
                 "http://localhost:3000"
               ],
@@ -1000,7 +1000,7 @@
                 "{{accountSid}}",
                 "Usage",
                 "Records",
-                "LastYear.json"
+                "LastYear"
               ]
             }
           }
@@ -1016,13 +1016,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3000/v2/Services.json",
+              "raw": "http://localhost:3000/v2/Services",
               "host": [
                 "http://localhost:3000"
               ],
               "path": [
                 "v2",
-                "Services.json"
+                "Services"
               ]
             }
           }
@@ -1050,14 +1050,14 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3000/v2/Services/{{serviceSid}}.json",
+              "raw": "http://localhost:3000/v2/Services/{{serviceSid}}",
               "host": [
                 "http://localhost:3000"
               ],
               "path": [
                 "v2",
                 "Services",
-                "{{serviceSid}}.json"
+                "{{serviceSid}}"
               ]
             }
           }
@@ -1087,7 +1087,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3000/v2/Services/{{serviceSid}}/Verifications.json",
+              "raw": "http://localhost:3000/v2/Services/{{serviceSid}}/Verifications",
               "host": [
                 "http://localhost:3000"
               ],
@@ -1095,7 +1095,7 @@
                 "v2",
                 "Services",
                 "{{serviceSid}}",
-                "Verifications.json"
+                "Verifications"
               ]
             }
           }
@@ -1111,14 +1111,14 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3000/v1/PhoneNumbers/+15551234567.json",
+              "raw": "http://localhost:3000/v1/PhoneNumbers/+15551234567",
               "host": [
                 "http://localhost:3000"
               ],
               "path": [
                 "v1",
                 "PhoneNumbers",
-                "+15551234567.json"
+                "+15551234567"
               ]
             }
           }
@@ -1134,13 +1134,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3000/v1/Conversations.json",
+              "raw": "http://localhost:3000/v1/Conversations",
               "host": [
                 "http://localhost:3000"
               ],
               "path": [
                 "v1",
-                "Conversations.json"
+                "Conversations"
               ]
             }
           }
@@ -1168,14 +1168,14 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3000/v1/Conversations/{{conversationSid}}.json",
+              "raw": "http://localhost:3000/v1/Conversations/{{conversationSid}}",
               "host": [
                 "http://localhost:3000"
               ],
               "path": [
                 "v1",
                 "Conversations",
-                "{{conversationSid}}.json"
+                "{{conversationSid}}"
               ]
             }
           }

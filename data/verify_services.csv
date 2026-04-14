@@ -1,11 +1,11 @@
 sid,friendly_name,code_length,lookup_enabled,psd2_enabled,status,date_created,date_updated
-VAb5ed1fa6b256a34d,Login Verification,4,true,false,active,2023-06-25T06:13:01.685Z,2026-04-14T22:28:04.220Z
-VAfbe8887045dc953c,2FA Service,4,true,false,inactive,2023-07-23T22:29:40.767Z,2026-04-14T22:28:04.220Z
-VA98a7377205571866,Transaction Approval,4,true,false,active,2025-04-23T16:27:27.102Z,2026-04-14T22:28:04.220Z
-VAc76fb59092805154,Password Reset,6,true,true,active,2024-04-16T04:57:27.950Z,2026-04-14T22:28:04.220Z
-VAd4f0b2c408e0f411,Account Recovery,4,false,false,active,2023-08-21T21:24:41.995Z,2026-04-14T22:28:04.220Z
-VAdb44f183ef2c1098,Payment Verification,6,false,false,active,2025-06-26T23:17:25.511Z,2026-04-14T22:28:04.220Z
-VA10cffdd49079fb58,User Signup,8,true,false,inactive,2024-12-04T04:32:17.463Z,2026-04-14T22:28:04.220Z
-VA85ac350e5c261d43,Phone Verification,6,true,false,active,2023-07-25T11:40:44.713Z,2026-04-14T22:28:04.220Z
-VAe64407face45a695,Verify Service 9,6,true,true,active,2024-09-16T09:09:31.025Z,2026-04-14T22:28:04.220Z
-VA088d837dfa317560,Verify Service 10,8,true,false,active,2025-12-30T18:58:31.775Z,2026-04-14T22:28:04.220Z
+VAd029732b26878359,Login Verification,6,true,true,active,2025-09-23T21:06:00.619Z,2026-04-14T23:15:19.309Z
+VA83233b3f95745ec5,2FA Service,6,true,false,active,2025-04-04T19:20:17.822Z,2026-04-14T23:15:19.309Z
+VAd0ad34b3fab03eb4,Transaction Approval,6,true,true,active,2025-12-02T00:44:37.573Z,2026-04-14T23:15:19.309Z
+VA7fc870a12c0d1752,Password Reset,8,true,false,active,2024-09-21T11:31:32.694Z,2026-04-14T23:15:19.309Z
+VA43f6c265d13b2da7,Account Recovery,4,true,false,active,2025-09-02T08:35:41.597Z,2026-04-14T23:15:19.309Z
+VA2afaf34c8a18281c,Payment Verification,6,true,true,active,2023-08-18T19:09:32.948Z,2026-04-14T23:15:19.309Z
+VA116ee8687fb0cdf6,User Signup,8,true,false,inactive,2024-08-13T13:09:48.379Z,2026-04-14T23:15:19.309Z
+VA98d6a2ce5aa7ac61,Phone Verification,8,false,false,active,2023-09-19T23:50:49.411Z,2026-04-14T23:15:19.309Z
+VAefaa1f84592ad33b,Verify Service 9,6,true,false,active,2025-09-18T18:05:22.166Z,2026-04-14T23:15:19.309Z
+VA208eebac9f2d7cf2,Verify Service 10,8,false,true,active,2023-09-11T06:00:24.202Z,2026-04-14T23:15:19.309Z

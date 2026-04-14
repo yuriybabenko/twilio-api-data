@@ -16,13 +16,13 @@ router.post('/v1/Exports', (req, res) => {
   res.json(newExport);
 });
 
-router.get('/v1/Exports/:ExportSid', (req, res) => {
+router.get('/v1/Exports/:ExportSid.json', (req, res) => {
   const exp = exportData.find(e => e.sid === req.params.ExportSid);
   if (!exp) return res.status(404).json({ code: 20404, message: 'Export not found' });
   res.json(exp);
 });
 
-router.get('/v1/Exports', (req, res) => {
+router.get('/v1/Exports.json', (req, res) => {
   const result = paginate(req, exportData, 'exports');
   res.json(result);
 });

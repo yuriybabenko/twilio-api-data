@@ -3,7 +3,7 @@ const router = express.Router();
 const { conversations } = require('../lib/data');
 const { paginate } = require('../lib/utils');
 
-router.get('/v1/Conversations', (req, res) => {
+router.get('/v1/Conversations.json', (req, res) => {
   const result = paginate(req, conversations, 'conversations');
   res.json(result);
 });
@@ -20,7 +20,7 @@ router.post('/v1/Conversations', (req, res) => {
   res.json(newConv);
 });
 
-router.get('/v1/Conversations/:ConversationSid', (req, res) => {
+router.get('/v1/Conversations/:ConversationSid.json', (req, res) => {
   const conv = conversations.find(c => c.sid === req.params.ConversationSid);
   if (!conv) return res.status(404).json({ code: 20404, message: 'Conversation not found' });
   res.json(conv);

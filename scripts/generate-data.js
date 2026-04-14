@@ -807,6 +807,9 @@ function generateCsvData() {
   console.log('- Verify Services:', verifyServices.length);
   console.log('- Verifications:', verifyVerifications.length);
   console.log('- Conversations:', conversations.length);
+  console.log('');
+  console.log('\x1b[33m⚠️  IMPORTANT: If the server is already running, restart it to load the new data.\x1b[0m');
+  console.log('\x1b[33m   The server caches data at startup, so changes won\'t be reflected until restart.\x1b[0m');
 }
 
 function ensureDataFiles() {

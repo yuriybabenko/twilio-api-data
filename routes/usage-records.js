@@ -18,7 +18,7 @@ function filterRecords(records, query) {
   return filtered;
 }
 
-router.get('/2010-04-01/Accounts/:AccountSid/Usage/Records', (req, res) => {
+router.get('/2010-04-01/Accounts/:AccountSid/Usage/Records.json', (req, res) => {
   if (accountMismatch(res, req.params.AccountSid, account.sid)) return;
   let records = usageRecords;
   records = filterRecords(records, req.query);
@@ -26,7 +26,24 @@ router.get('/2010-04-01/Accounts/:AccountSid/Usage/Records', (req, res) => {
   res.json(result);
 });
 
-router.get('/2010-04-01/Accounts/:AccountSid/Usage/Records/:Category', (req, res) => {
+router.get('/2010-04-01/Accounts/:AccountSid/Usage/Records/Daily.json', (req, res) => {
+  if (accountMismatch(res, req.params.AccountSid, account.sid)) return;
+  let records = usageRecords;
+  records = filterRecords(records, req.query);
+  const result = paginate(req, records, 'usage_records');
+  res.json(result);
+});
+
+router.get('/2010-04-01/Accounts/:AccountSid/Usage/Records/Monthly.json', (req, res) => {
+  if (accountMismatch(res, req.params.AccountSid, account.sid)) return;
+  let records = usageRecords;
+  // Group by month for monthly endpoint
+  records = filterRecords(records, req.query);
+  const result = paginate(req, records, 'usage_records');
+  res.json(result);
+});
+
+router.get('/2010-04-01/Accounts/:AccountSid/Usage/Records/:Category.json', (req, res) => {
   if (accountMismatch(res, req.params.AccountSid, account.sid)) return;
   let records = usageRecords;
   if (req.params.Category) {
