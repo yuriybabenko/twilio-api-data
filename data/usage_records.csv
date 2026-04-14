@@ -1,0 +1,5 @@
+account_sid,category,description,start_date,end_date,count,count_unit,price,price_unit,usage_unit
+ACcb44e59a6e8bf77b6329094c5a4db011,calls,calls usage,2024-01-01,2024-12-31,739,calls,10.51,USD,calls
+ACcb44e59a6e8bf77b6329094c5a4db011,sms,sms usage,2024-01-01,2024-12-31,979,calls,61.39,USD,calls
+ACcb44e59a6e8bf77b6329094c5a4db011,mms,mms usage,2024-01-01,2024-12-31,17,calls,45.35,USD,calls
+ACcb44e59a6e8bf77b6329094c5a4db011,totalprice,totalprice usage,2024-01-01,2024-12-31,336,usd,42.03,USD,dollars

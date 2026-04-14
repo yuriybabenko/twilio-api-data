@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Twilio Calls API Runner</title>
+    <link href="bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="style.css" rel="stylesheet" />
+  </head>
+  <body data-page="Calls">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container">
+        <a class="navbar-brand" href="/">Twilio API Runner</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="/account.html">Account</a></li>
+            <li class="nav-item"><a class="nav-link" href="/phone-numbers.html">Phone Numbers</a></li>
+            <li class="nav-item"><a class="nav-link" href="/messages.html">Messages</a></li>
+            <li class="nav-item"><a class="nav-link active" href="/calls.html">Calls</a></li>
+            <li class="nav-item"><a class="nav-link" href="/messaging-services.html">Messaging Services</a></li>
+            <li class="nav-item"><a class="nav-link" href="/brands.html">Brands</a></li>
+            <li class="nav-item"><a class="nav-link" href="/campaigns.html">Campaigns</a></li>
+            <li class="nav-item"><a class="nav-link" href="/organizations.html">Organizations</a></li>
+            <li class="nav-item"><a class="nav-link" href="/usage-records.html">Usage Records</a></li>
+            <li class="nav-item"><a class="nav-link" href="/exports.html">Bulk Export</a></li>
+            <li class="nav-item"><a class="nav-link" href="/verify.html">Verify</a></li>
+            <li class="nav-item"><a class="nav-link" href="/lookup.html">Lookup</a></li>
+            <li class="nav-item"><a class="nav-link" href="/conversations.html">Conversations</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container py-4">
+      <div class="d-flex flex-column flex-md-row align-items-start justify-content-between mb-4">
+        <div>
+          <h1 class="h3 mb-1">Twilio Calls API Runner</h1>
+          <p class="text-muted mb-0">Load the generated Postman collection and run Calls API endpoints from the browser.</p>
+        </div>
+        <div class="text-end mt-3 mt-md-0">
+          <a href="/collection.json" class="btn btn-outline-secondary btn-sm">Download Collection</a>
+          <a href="/health" class="btn btn-primary btn-sm">Health Check</a>
+        </div>
+      </div>
+
+      <div id="collection-container"></div>
+    </div>
+
+    <script src="bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

@@ -2,6 +2,7 @@
   "name": "twilio-api-data",
   "version": "1.0.0",
   "description": "A Node.js project for Twilio API data",
+  "type": "commonjs",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",

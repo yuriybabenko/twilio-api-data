@@ -13,6 +13,12 @@ const callRoutes = require('./routes/calls');
 const messagingServiceRoutes = require('./routes/messaging-services');
 const brandRoutes = require('./routes/brands');
 const campaignRoutes = require('./routes/campaigns');
+const organizationsRoutes = require('./routes/organizations');
+const usageRecordsRoutes = require('./routes/usage-records');
+const exportsRoutes = require('./routes/exports');
+const verifyRoutes = require('./routes/verify');
+const lookupRoutes = require('./routes/lookup');
+const conversationsRoutes = require('./routes/conversations');
 
 const app = express();
 
@@ -26,6 +32,17 @@ app.use(callRoutes);
 app.use(messagingServiceRoutes);
 app.use(brandRoutes);
 app.use(campaignRoutes);
+app.use(organizationsRoutes);
+app.use(usageRecordsRoutes);
+app.use(exportsRoutes);
+app.use(verifyRoutes);
+app.use(lookupRoutes);
+app.use(conversationsRoutes);
+app.use(usageRecordsRoutes);
+app.use(exportsRoutes);
+app.use(verifyRoutes);
+app.use(lookupRoutes);
+app.use(conversationsRoutes);
 
 app.get('/collection.json', (req, res) => {
   res.sendFile(path.join(__dirname, 'postman', 'twilio-dummy-api.postman_collection.json'));

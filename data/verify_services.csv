@@ -1,0 +1,4 @@
+sid,friendly_name,code_length,lookup_enabled,psd2_enabled,status,date_created,date_updated
+VA8b99e8b6571167c5,Verify Service 1,6,true,false,active,2023-10-08T03:30:14.122Z,2026-04-14T20:25:20.531Z
+VA876bfd7b8db23fde,Verify Service 2,6,true,false,active,2024-02-10T09:16:22.813Z,2026-04-14T20:25:20.531Z
+VA36551b63d60211d2,Verify Service 3,6,true,false,active,2025-10-18T22:41:40.842Z,2026-04-14T20:25:20.531Z

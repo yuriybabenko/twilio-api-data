@@ -355,6 +355,110 @@ function buildMessageStats(messages) {
   }));
 }
 
+function buildOrganizations() {
+  const organizations = [];
+  for (let i = 0; i < 5; i++) {
+    organizations.push({
+      sid: makeSid('OR'),
+      friendly_name: `Organization ${i + 1}`,
+      status: 'active',
+      date_created: formatIso(randomDateBetween(threeYearsAgo, dateNow)),
+      date_updated: formatIso(dateNow)
+    });
+  }
+  return organizations;
+}
+
+function buildUsageRecords() {
+  const records = [];
+  const categories = ['calls', 'sms', 'mms', 'totalprice'];
+  categories.forEach(category => {
+    records.push({
+      account_sid: accountSid,
+      category,
+      description: `${category} usage`,
+      start_date: '2024-01-01',
+      end_date: '2024-12-31',
+      count: Math.floor(Math.random() * 1000),
+      count_unit: category === 'totalprice' ? 'usd' : 'calls',
+      price: (Math.random() * 100).toFixed(2),
+      price_unit: 'USD',
+      usage_unit: category === 'totalprice' ? 'dollars' : 'calls'
+    });
+  });
+  return records;
+}
+
+function buildExports() {
+  const exports = [];
+  const types = ['messages', 'calls'];
+  types.forEach(type => {
+    exports.push({
+      sid: makeSid('EX'),
+      status: 'completed',
+      resource_type: type,
+      start_day: '2024-01-01',
+      end_day: '2024-12-31',
+      url: `https://example.com/export/${type}.zip`,
+      date_created: formatIso(randomDateBetween(threeYearsAgo, dateNow)),
+      date_updated: formatIso(dateNow)
+    });
+  });
+  return exports;
+}
+
+function buildVerifyServices() {
+  const services = [];
+  for (let i = 0; i < 3; i++) {
+    services.push({
+      sid: makeSid('VA'),
+      friendly_name: `Verify Service ${i + 1}`,
+      code_length: 6,
+      lookup_enabled: 'true',
+      psd2_enabled: 'false',
+      status: 'active',
+      date_created: formatIso(randomDateBetween(threeYearsAgo, dateNow)),
+      date_updated: formatIso(dateNow)
+    });
+  }
+  return services;
+}
+
+function buildVerifyVerifications(services) {
+  const verifications = [];
+  services.forEach(service => {
+    for (let i = 0; i < 5; i++) {
+      verifications.push({
+        sid: makeSid('VE'),
+        service_sid: service.sid,
+        account_sid: accountSid,
+        to: `+1${Math.floor(Math.random() * 9000000000) + 1000000000}`,
+        channel: 'sms',
+        status: ['pending', 'approved', 'canceled'][Math.floor(Math.random() * 3)],
+        valid: 'true',
+        date_created: formatIso(randomDateBetween(threeYearsAgo, dateNow)),
+        date_updated: formatIso(dateNow)
+      });
+    }
+  });
+  return verifications;
+}
+
+function buildConversations() {
+  const conversations = [];
+  for (let i = 0; i < 10; i++) {
+    conversations.push({
+      sid: makeSid('CH'),
+      account_sid: accountSid,
+      friendly_name: `Conversation ${i + 1}`,
+      state: 'active',
+      date_created: formatIso(randomDateBetween(threeYearsAgo, dateNow)),
+      date_updated: formatIso(dateNow)
+    });
+  }
+  return conversations;
+}
+
 function buildCallStats(calls) {
   const statsByDay = {};
   calls.forEach((call) => {
@@ -447,6 +551,12 @@ function generateCsvData() {
   const brandPackage = buildBrandAndCampaigns(services);
   const serviceNumberAssignments = buildServiceNumberAssignments(services, phonePackage.all);
   const history = buildHistory(phonePackage.all, shortCodes);
+  const organizations = buildOrganizations();
+  const usageRecords = buildUsageRecords();
+  const exports = buildExports();
+  const verifyServices = buildVerifyServices();
+  const verifyVerifications = buildVerifyVerifications(verifyServices);
+  const conversations = buildConversations();
   const billings = buildBillings(history.messages, history.calls);
   const messageStats = buildMessageStats(history.messages);
   const callStats = buildCallStats(history.calls);
@@ -464,6 +574,12 @@ function generateCsvData() {
   writeCsv('billings.csv', ['sid', 'account_sid', 'resource_type', 'resource_sid', 'date_created', 'amount', 'currency', 'description'], billings);
   writeCsv('message_stats.csv', ['account_sid', 'date', 'period', 'sent', 'delivered', 'failed', 'inbound', 'outbound', 'total_price', 'price_unit'], messageStats);
   writeCsv('call_stats.csv', ['account_sid', 'date', 'period', 'completed', 'busy', 'inbound', 'outbound', 'total_duration', 'total_price', 'price_unit'], callStats);
+  writeCsv('organizations.csv', ['sid', 'friendly_name', 'status', 'date_created', 'date_updated'], organizations);
+  writeCsv('usage_records.csv', ['account_sid', 'category', 'description', 'start_date', 'end_date', 'count', 'count_unit', 'price', 'price_unit', 'usage_unit'], usageRecords);
+  writeCsv('exports.csv', ['sid', 'status', 'resource_type', 'start_day', 'end_day', 'url', 'date_created', 'date_updated'], exports);
+  writeCsv('verify_services.csv', ['sid', 'friendly_name', 'code_length', 'lookup_enabled', 'psd2_enabled', 'status', 'date_created', 'date_updated'], verifyServices);
+  writeCsv('verify_verifications.csv', ['sid', 'service_sid', 'account_sid', 'to', 'channel', 'status', 'valid', 'date_created', 'date_updated'], verifyVerifications);
+  writeCsv('conversations.csv', ['sid', 'account_sid', 'friendly_name', 'state', 'date_created', 'date_updated'], conversations);
 
   fs.writeFileSync(path.join(dataDir, 'metadata.json'), JSON.stringify({ account_sid: accountSid }, null, 2), 'utf8');
 
@@ -524,6 +640,258 @@ function generateCsvData() {
     { key: 'callSid', value: callSid }
   ];
 
+  // Add new API requests to the collection
+  const newItems = [
+    {
+      name: 'Organizations',
+      item: [
+        {
+          name: 'List Organizations',
+          request: {
+            method: 'GET',
+            header: [],
+            url: {
+              raw: '{{baseUrl}}/v1/Organizations',
+              host: ['{{baseUrl}}'],
+              path: ['v1', 'Organizations']
+            }
+          }
+        },
+        {
+          name: 'Create Organization',
+          request: {
+            method: 'POST',
+            header: [],
+            url: {
+              raw: '{{baseUrl}}/v1/Organizations',
+              host: ['{{baseUrl}}'],
+              path: ['v1', 'Organizations']
+            }
+          }
+        }
+      ]
+    },
+    {
+      name: 'Usage Records',
+      item: [
+        {
+          name: 'List Usage Records',
+          request: {
+            method: 'GET',
+            header: [],
+            url: {
+              raw: '{{baseUrl}}/2010-04-01/Accounts/{{accountSid}}/Usage/Records',
+              host: ['{{baseUrl}}'],
+              path: ['2010-04-01', 'Accounts', '{{accountSid}}', 'Usage', 'Records']
+            }
+          }
+        },
+        {
+          name: 'List Usage Records by Category',
+          request: {
+            method: 'GET',
+            header: [],
+            url: {
+              raw: '{{baseUrl}}/2010-04-01/Accounts/{{accountSid}}/Usage/Records/calls',
+              host: ['{{baseUrl}}'],
+              path: ['2010-04-01', 'Accounts', '{{accountSid}}', 'Usage', 'Records', 'calls']
+            }
+          }
+        },
+        {
+          name: 'List Usage Records Today',
+          request: {
+            method: 'GET',
+            header: [],
+            url: {
+              raw: '{{baseUrl}}/2010-04-01/Accounts/{{accountSid}}/Usage/Records/Today',
+              host: ['{{baseUrl}}'],
+              path: ['2010-04-01', 'Accounts', '{{accountSid}}', 'Usage', 'Records', 'Today']
+            }
+          }
+        },
+        {
+          name: 'List Usage Records Yesterday',
+          request: {
+            method: 'GET',
+            header: [],
+            url: {
+              raw: '{{baseUrl}}/2010-04-01/Accounts/{{accountSid}}/Usage/Records/Yesterday',
+              host: ['{{baseUrl}}'],
+              path: ['2010-04-01', 'Accounts', '{{accountSid}}', 'Usage', 'Records', 'Yesterday']
+            }
+          }
+        },
+        {
+          name: 'List Usage Records This Month',
+          request: {
+            method: 'GET',
+            header: [],
+            url: {
+              raw: '{{baseUrl}}/2010-04-01/Accounts/{{accountSid}}/Usage/Records/ThisMonth',
+              host: ['{{baseUrl}}'],
+              path: ['2010-04-01', 'Accounts', '{{accountSid}}', 'Usage', 'Records', 'ThisMonth']
+            }
+          }
+        },
+        {
+          name: 'List Usage Records Last Month',
+          request: {
+            method: 'GET',
+            header: [],
+            url: {
+              raw: '{{baseUrl}}/2010-04-01/Accounts/{{accountSid}}/Usage/Records/LastMonth',
+              host: ['{{baseUrl}}'],
+              path: ['2010-04-01', 'Accounts', '{{accountSid}}', 'Usage', 'Records', 'LastMonth']
+            }
+          }
+        },
+        {
+          name: 'List Usage Records This Year',
+          request: {
+            method: 'GET',
+            header: [],
+            url: {
+              raw: '{{baseUrl}}/2010-04-01/Accounts/{{accountSid}}/Usage/Records/ThisYear',
+              host: ['{{baseUrl}}'],
+              path: ['2010-04-01', 'Accounts', '{{accountSid}}', 'Usage', 'Records', 'ThisYear']
+            }
+          }
+        },
+        {
+          name: 'List Usage Records Last Year',
+          request: {
+            method: 'GET',
+            header: [],
+            url: {
+              raw: '{{baseUrl}}/2010-04-01/Accounts/{{accountSid}}/Usage/Records/LastYear',
+              host: ['{{baseUrl}}'],
+              path: ['2010-04-01', 'Accounts', '{{accountSid}}', 'Usage', 'Records', 'LastYear']
+            }
+          }
+        }
+      ]
+    },
+    {
+      name: 'Bulk Export',
+      item: [
+        {
+          name: 'Create Export',
+          request: {
+            method: 'POST',
+            header: [],
+            url: {
+              raw: '{{baseUrl}}/v1/Exports',
+              host: ['{{baseUrl}}'],
+              path: ['v1', 'Exports']
+            }
+          }
+        },
+        {
+          name: 'List Exports',
+          request: {
+            method: 'GET',
+            header: [],
+            url: {
+              raw: '{{baseUrl}}/v1/Exports',
+              host: ['{{baseUrl}}'],
+              path: ['v1', 'Exports']
+            }
+          }
+        }
+      ]
+    },
+    {
+      name: 'Verify',
+      item: [
+        {
+          name: 'List Services',
+          request: {
+            method: 'GET',
+            header: [],
+            url: {
+              raw: '{{baseUrl}}/v2/Services',
+              host: ['{{baseUrl}}'],
+              path: ['v2', 'Services']
+            }
+          }
+        },
+        {
+          name: 'Create Service',
+          request: {
+            method: 'POST',
+            header: [],
+            url: {
+              raw: '{{baseUrl}}/v2/Services',
+              host: ['{{baseUrl}}'],
+              path: ['v2', 'Services']
+            }
+          }
+        },
+        {
+          name: 'Create Verification',
+          request: {
+            method: 'POST',
+            header: [],
+            url: {
+              raw: '{{baseUrl}}/v2/Services/{{serviceSid}}/Verifications',
+              host: ['{{baseUrl}}'],
+              path: ['v2', 'Services', '{{serviceSid}}', 'Verifications']
+            }
+          }
+        }
+      ]
+    },
+    {
+      name: 'Lookup',
+      item: [
+        {
+          name: 'Lookup Phone Number',
+          request: {
+            method: 'GET',
+            header: [],
+            url: {
+              raw: '{{baseUrl}}/v1/PhoneNumbers/+15551234567',
+              host: ['{{baseUrl}}'],
+              path: ['v1', 'PhoneNumbers', '+15551234567']
+            }
+          }
+        }
+      ]
+    },
+    {
+      name: 'Conversations',
+      item: [
+        {
+          name: 'List Conversations',
+          request: {
+            method: 'GET',
+            header: [],
+            url: {
+              raw: '{{baseUrl}}/v1/Conversations',
+              host: ['{{baseUrl}}'],
+              path: ['v1', 'Conversations']
+            }
+          }
+        },
+        {
+          name: 'Create Conversation',
+          request: {
+            method: 'POST',
+            header: [],
+            url: {
+              raw: '{{baseUrl}}/v1/Conversations',
+              host: ['{{baseUrl}}'],
+              path: ['v1', 'Conversations']
+            }
+          }
+        }
+      ]
+    }
+  ];
+
+  collection.item.push(...newItems);
+
   walkItems(collection.item || []);
 
   fs.writeFileSync(postmanPath, JSON.stringify(collection, null, 2), 'utf8');
@@ -548,7 +916,13 @@ function ensureDataFiles() {
     'calls.csv',
     'billings.csv',
     'message_stats.csv',
-    'call_stats.csv'
+    'call_stats.csv',
+    'organizations.csv',
+    'usage_records.csv',
+    'exports.csv',
+    'verify_services.csv',
+    'verify_verifications.csv',
+    'conversations.csv'
   ];
   const missing = required.filter((file) => !fs.existsSync(path.join(dataDir, file)));
   if (missing.length) {

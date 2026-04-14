@@ -1,6 +1,6 @@
 sid,account_sid,friendly_name,status,date_created,date_updated,sms_url,price_unit
-MGd4ed4dd34cd3595a,ACcabbc8db28677d7319eb5d87ff2e7562,Service 1,active,2026-01-13T00:26:14.139Z,2026-04-14T19:55:43.275Z,https://example.com/sms/1,USD
-MG2b24c1a8b5ba166b,ACcabbc8db28677d7319eb5d87ff2e7562,Service 2,active,2024-03-18T02:53:33.284Z,2026-04-14T19:55:43.275Z,https://example.com/sms/2,USD
-MG7016ccfce747aef6,ACcabbc8db28677d7319eb5d87ff2e7562,Service 3,active,2024-06-15T16:11:39.363Z,2026-04-14T19:55:43.275Z,https://example.com/sms/3,USD
-MG7e7aaff943d6fc54,ACcabbc8db28677d7319eb5d87ff2e7562,Service 4,active,2025-09-26T00:18:48.840Z,2026-04-14T19:55:43.275Z,https://example.com/sms/4,USD
-MGb31491720d9a1225,ACcabbc8db28677d7319eb5d87ff2e7562,Service 5,inactive,2025-04-10T09:47:16.917Z,2026-04-14T19:55:43.275Z,https://example.com/sms/5,USD
+MG0f2c3a4ff4d55395,ACcb44e59a6e8bf77b6329094c5a4db011,Service 1,active,2025-06-12T05:46:51.412Z,2026-04-14T20:25:20.531Z,https://example.com/sms/1,USD
+MGb4dc492faee576d5,ACcb44e59a6e8bf77b6329094c5a4db011,Service 2,active,2023-06-01T21:10:14.896Z,2026-04-14T20:25:20.531Z,https://example.com/sms/2,USD
+MGc67d772da6e6fceb,ACcb44e59a6e8bf77b6329094c5a4db011,Service 3,active,2024-11-03T21:18:11.399Z,2026-04-14T20:25:20.531Z,https://example.com/sms/3,USD
+MG132a2e1cb9181761,ACcb44e59a6e8bf77b6329094c5a4db011,Service 4,active,2025-08-20T09:15:00.390Z,2026-04-14T20:25:20.531Z,https://example.com/sms/4,USD
+MG636c39b465c9ec49,ACcb44e59a6e8bf77b6329094c5a4db011,Service 5,inactive,2024-06-17T14:28:28.071Z,2026-04-14T20:25:20.531Z,https://example.com/sms/5,USD

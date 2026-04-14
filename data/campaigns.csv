@@ -1,6 +1,6 @@
 sid,account_sid,brand_sid,messaging_service_sid,friendly_name,status,use_case,created_date,description,compliance_status
-CBf1afc41fc5e86fe1,ACcabbc8db28677d7319eb5d87ff2e7562,BR07f815131eb8cdcd,MGd4ed4dd34cd3595a,Campaign 1,approved,marketing,2025-02-05T07:52:00.288Z,A marketing campaign for Acme Holdings.,active
-CB6960cceb3a77a69e,ACcabbc8db28677d7319eb5d87ff2e7562,BR07f815131eb8cdcd,MG2b24c1a8b5ba166b,Campaign 2,approved,customer_care,2024-06-03T16:57:30.665Z,A customer_care campaign for Acme Holdings.,active
-CB2b1d371d02b88bc1,ACcabbc8db28677d7319eb5d87ff2e7562,BR07f815131eb8cdcd,MG7016ccfce747aef6,Campaign 3,approved,operational,2025-04-07T00:29:20.012Z,A operational campaign for Acme Holdings.,active
-CB746af3f867e5ffb1,ACcabbc8db28677d7319eb5d87ff2e7562,BR07f815131eb8cdcd,MG7e7aaff943d6fc54,Campaign 4,rejected,alerts,2024-05-25T23:59:41.464Z,A alerts campaign for Acme Holdings.,rejected
-CBa6ebd3ee64c84690,ACcabbc8db28677d7319eb5d87ff2e7562,BR07f815131eb8cdcd,MGb31491720d9a1225,Campaign 5,rejected,onboarding,2026-02-08T13:38:49.737Z,A onboarding campaign for Acme Holdings.,rejected
+CB77e420b23ee68e29,ACcb44e59a6e8bf77b6329094c5a4db011,BR5d6fbb1fd33a97a0,MG0f2c3a4ff4d55395,Campaign 1,approved,marketing,2024-07-09T07:05:52.333Z,A marketing campaign for Acme Holdings.,active
+CB4fa7487c4b25fc63,ACcb44e59a6e8bf77b6329094c5a4db011,BR5d6fbb1fd33a97a0,MGb4dc492faee576d5,Campaign 2,approved,customer_care,2025-07-06T11:53:17.814Z,A customer_care campaign for Acme Holdings.,active
+CB4912a52ee18245da,ACcb44e59a6e8bf77b6329094c5a4db011,BR5d6fbb1fd33a97a0,MGc67d772da6e6fceb,Campaign 3,approved,operational,2025-03-05T05:20:53.388Z,A operational campaign for Acme Holdings.,active
+CB7d6bf5485f3a8f2d,ACcb44e59a6e8bf77b6329094c5a4db011,BR5d6fbb1fd33a97a0,MG132a2e1cb9181761,Campaign 4,rejected,alerts,2023-07-09T14:39:23.933Z,A alerts campaign for Acme Holdings.,rejected
+CB56c217e4b6fcafbe,ACcb44e59a6e8bf77b6329094c5a4db011,BR5d6fbb1fd33a97a0,MG636c39b465c9ec49,Campaign 5,rejected,onboarding,2024-07-19T14:53:41.094Z,A onboarding campaign for Acme Holdings.,rejected

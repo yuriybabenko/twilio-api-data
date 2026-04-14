@@ -28,7 +28,7 @@ function renderVariableField(variable) {
   col.className = 'col-12 col-sm-6 col-lg-4';
   col.innerHTML = `
     <label class="form-label mb-1">${variable.key}</label>
-    <input type="text" class="form-control variable-input" data-key="${variable.key}" value="${variable.value || ''}" ${variable.key === 'baseUrl' ? 'readonly' : ''} />
+    <input type="text" class="form-control variable-input" data-key="${variable.key}" value="${variable.value || ''}" readonly />
     <div class="form-text">${variable.description || ''}</div>
   `;
   variablesEl.appendChild(col);
@@ -126,22 +126,30 @@ function init() {
       collection = data;
       variables = Object.fromEntries((collection.variable || []).map((variable) => [variable.key, variable.value || '']));
       variables['baseUrl'] = variables['baseUrl'] || window.location.origin;
-      variablesEl.innerHTML = '';
-      (collection.variable || []).forEach(renderVariableField);
+      
+      if (variablesEl) {
+        variablesEl.innerHTML = '';
+        (collection.variable || []).forEach(renderVariableField);
 
-      variablesEl.addEventListener('input', (event) => {
-        const input = event.target.closest('input[data-key]');
-        if (input) {
-          variables[input.dataset.key] = input.value;
-        }
-      });
+        variablesEl.addEventListener('input', (event) => {
+          const input = event.target.closest('input[data-key]');
+          if (input) {
+            variables[input.dataset.key] = input.value;
+          }
+        });
+      }
 
-      const title = document.createElement('div');
-      title.className = 'mb-3';
-      title.innerHTML = `<strong>Collection:</strong> ${collection.info?.name || 'Untitled'}`;
-      container.appendChild(title);
+      const pageFilter = document.body.getAttribute('data-page');
+      const filteredItems = pageFilter ? (collection.item || []).filter((item) => item.name.includes(pageFilter)) : [];
 
-      (collection.item || []).forEach((item) => renderFolder(item, container));
+      if (filteredItems.length > 0) {
+        const title = document.createElement('div');
+        title.className = 'mb-3';
+        title.innerHTML = `<strong>Collection:</strong> ${collection.info?.name || 'Untitled'}`;
+        container.appendChild(title);
+      }
+
+      filteredItems.forEach((item) => renderFolder(item, container));
     })
     .catch((error) => {
       container.innerHTML = `<div class="alert alert-danger">Unable to load the collection: ${error.message}</div>`;

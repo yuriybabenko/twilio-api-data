@@ -3,11 +3,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Twilio Dummy API Runner</title>
+    <title>Twilio Messages API Runner</title>
     <link href="bootstrap/bootstrap.min.css" rel="stylesheet" />
     <link href="style.css" rel="stylesheet" />
   </head>
-  <body>
+  <body data-page="Messages">
     <div class="sidebar">
       <div class="sidebar-header">
         <h2 class="sidebar-title">Twilio API Runner</h2>
@@ -15,7 +15,7 @@
       <nav class="sidebar-nav">
         <ul class="nav-list">
           <li class="nav-item">
-            <a class="nav-link active" href="/">
+            <a class="nav-link" href="/">
               <span class="nav-icon">🏠</span>
               <span class="nav-text">Home</span>
             </a>
@@ -33,7 +33,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/messages.html">
+            <a class="nav-link active" href="/messages.html">
               <span class="nav-icon">💬</span>
               <span class="nav-text">Messages</span>
             </a>
@@ -105,8 +105,8 @@
       <div class="container-fluid py-4">
       <div class="d-flex flex-column flex-md-row align-items-start justify-content-between mb-4">
         <div>
-          <h1 class="h3 mb-1">Twilio Dummy API Runner</h1>
-          <p class="text-muted mb-0">Load the generated Postman collection and run each dummy Twilio endpoint from the browser.</p>
+          <h1 class="h3 mb-1">Twilio Messages API Runner</h1>
+          <p class="text-muted mb-0">Load the generated Postman collection and run Messages API endpoints from the browser.</p>
         </div>
         <div class="text-end mt-3 mt-md-0">
           <a href="/collection.json" class="btn btn-outline-secondary btn-sm">Download Collection</a>
@@ -114,12 +114,7 @@
         </div>
       </div>
 
-      <div class="card mb-4">
-        <div class="card-body">
-          <h2 class="h5">Environment Variables</h2>
-          <div id="variables" class="row gy-3"></div>
-        </div>
-      </div>
+      <div id="collection-container"></div>
       </div>
     </div>
 
