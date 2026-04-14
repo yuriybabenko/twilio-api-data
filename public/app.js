@@ -51,9 +51,12 @@ function renderRequest(item, groupId) {
       <div class="d-flex align-items-start justify-content-between gap-3 mb-2">
         <div>
           <h5 class="card-title mb-1">${item.name || item.request.url?.raw || method}</h5>
-          <div class="request-meta text-muted">${method} <code>${formatRequestUrl(item.request)}</code></div>
+          <div class="request-meta text-muted">
+            <span class="method-badge ${method.toLowerCase()}">${method}</span>
+            <code>${formatRequestUrl(item.request)}</code>
+          </div>
         </div>
-        <button class="btn btn-sm btn-primary send-request">Send</button>
+        <button class="btn btn-sm btn-primary send-request">Send Request</button>
       </div>
       <div class="mb-3">
         <div class="form-text">${item.request.description || ''}</div>
