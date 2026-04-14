@@ -1,0 +1,25 @@
+:root {
+  color-scheme: dark light;
+}
+body {
+  background: #f8f9fa;
+}
+.card-request {
+  border-left: .35rem solid #0d6efd;
+}
+.request-meta {
+  font-size: 0.9rem;
+}
+.response-box {
+  background: #212529;
+  color: #e9ecef;
+  border-radius: .45rem;
+  padding: 1rem;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+.variable-input {
+  min-width: 200px;
+}

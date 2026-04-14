@@ -1,0 +1,3 @@
+sid,account_sid,friendly_name,phone_number,country_code,phone_number_type,capabilities,sms_enabled,voice_enabled,verified,date_created,date_updated
+SC8b055c5342f59d84,ACcabbc8db28677d7319eb5d87ff2e7562,Short Code 80000,80000,US,short_code,SMS,true,false,true,2025-02-18T07:09:25.994Z,2026-04-14T19:55:43.275Z
+SC897308cd7cec984d,ACcabbc8db28677d7319eb5d87ff2e7562,Short Code 80001,80001,US,short_code,SMS,true,false,true,2025-04-27T14:26:08.587Z,2026-04-14T19:55:43.275Z

@@ -1,0 +1,729 @@
+{
+  "info": {
+    "name": "Twilio Dummy API",
+    "description": "Postman collection for the local Twilio mock server with one request for each endpoint.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Account",
+      "item": [
+        {
+          "name": "Get Account",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/2010-04-01/Accounts/{{accountSid}}.json",
+              "host": [
+                "http://localhost:3000"
+              ],
+              "path": [
+                "2010-04-01",
+                "Accounts",
+                "{{accountSid}}.json"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                  "pm.test('Response is valid JSON', function () { pm.response.to.be.json; });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Phone Numbers",
+      "item": [
+        {
+          "name": "List Incoming Phone Numbers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/2010-04-01/Accounts/{{accountSid}}/IncomingPhoneNumbers.json?PageSize=5",
+              "host": [
+                "http://localhost:3000"
+              ],
+              "path": [
+                "2010-04-01",
+                "Accounts",
+                "{{accountSid}}",
+                "IncomingPhoneNumbers.json"
+              ],
+              "query": [
+                {
+                  "key": "PageSize",
+                  "value": "5"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                  "pm.test('Response is valid JSON', function () { pm.response.to.be.json; });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Incoming Phone Number",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/2010-04-01/Accounts/{{accountSid}}/IncomingPhoneNumbers/{{incomingPhoneNumberSid}}.json",
+              "host": [
+                "http://localhost:3000"
+              ],
+              "path": [
+                "2010-04-01",
+                "Accounts",
+                "{{accountSid}}",
+                "IncomingPhoneNumbers",
+                "{{incomingPhoneNumberSid}}.json"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                  "pm.test('Response is valid JSON', function () { pm.response.to.be.json; });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Search Available Local Numbers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/2010-04-01/Accounts/{{accountSid}}/AvailablePhoneNumbers/US/Local.json?PageSize=5",
+              "host": [
+                "http://localhost:3000"
+              ],
+              "path": [
+                "2010-04-01",
+                "Accounts",
+                "{{accountSid}}",
+                "AvailablePhoneNumbers",
+                "US",
+                "Local.json"
+              ],
+              "query": [
+                {
+                  "key": "PageSize",
+                  "value": "5"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                  "pm.test('Response is valid JSON', function () { pm.response.to.be.json; });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Search Available TollFree Numbers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/2010-04-01/Accounts/{{accountSid}}/AvailablePhoneNumbers/US/TollFree.json?PageSize=5",
+              "host": [
+                "http://localhost:3000"
+              ],
+              "path": [
+                "2010-04-01",
+                "Accounts",
+                "{{accountSid}}",
+                "AvailablePhoneNumbers",
+                "US",
+                "TollFree.json"
+              ],
+              "query": [
+                {
+                  "key": "PageSize",
+                  "value": "5"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                  "pm.test('Response is valid JSON', function () { pm.response.to.be.json; });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Messages",
+      "item": [
+        {
+          "name": "List Messages",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/2010-04-01/Accounts/{{accountSid}}/Messages.json?PageSize=5",
+              "host": [
+                "http://localhost:3000"
+              ],
+              "path": [
+                "2010-04-01",
+                "Accounts",
+                "{{accountSid}}",
+                "Messages.json"
+              ],
+              "query": [
+                {
+                  "key": "PageSize",
+                  "value": "5"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                  "pm.test('Response is valid JSON', function () { pm.response.to.be.json; });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Message Stats",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/2010-04-01/Accounts/{{accountSid}}/Messages/Stats.json?PageSize=5&StartDate=2024-01-01&EndDate=2024-12-31",
+              "host": [
+                "http://localhost:3000"
+              ],
+              "path": [
+                "2010-04-01",
+                "Accounts",
+                "{{accountSid}}",
+                "Messages",
+                "Stats.json"
+              ],
+              "query": [
+                {
+                  "key": "PageSize",
+                  "value": "5"
+                },
+                {
+                  "key": "StartDate",
+                  "value": "2024-01-01"
+                },
+                {
+                  "key": "EndDate",
+                  "value": "2024-12-31"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                  "pm.test('Response is valid JSON', function () { pm.response.to.be.json; });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Message",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/2010-04-01/Accounts/{{accountSid}}/Messages/{{messageSid}}.json",
+              "host": [
+                "http://localhost:3000"
+              ],
+              "path": [
+                "2010-04-01",
+                "Accounts",
+                "{{accountSid}}",
+                "Messages",
+                "{{messageSid}}.json"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                  "pm.test('Response is valid JSON', function () { pm.response.to.be.json; });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Calls",
+      "item": [
+        {
+          "name": "List Calls",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/2010-04-01/Accounts/{{accountSid}}/Calls.json?PageSize=5",
+              "host": [
+                "http://localhost:3000"
+              ],
+              "path": [
+                "2010-04-01",
+                "Accounts",
+                "{{accountSid}}",
+                "Calls.json"
+              ],
+              "query": [
+                {
+                  "key": "PageSize",
+                  "value": "5"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                  "pm.test('Response is valid JSON', function () { pm.response.to.be.json; });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Call Stats",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/2010-04-01/Accounts/{{accountSid}}/Calls/Stats.json?PageSize=5&StartDate=2024-01-01&EndDate=2024-12-31",
+              "host": [
+                "http://localhost:3000"
+              ],
+              "path": [
+                "2010-04-01",
+                "Accounts",
+                "{{accountSid}}",
+                "Calls",
+                "Stats.json"
+              ],
+              "query": [
+                {
+                  "key": "PageSize",
+                  "value": "5"
+                },
+                {
+                  "key": "StartDate",
+                  "value": "2024-01-01"
+                },
+                {
+                  "key": "EndDate",
+                  "value": "2024-12-31"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                  "pm.test('Response is valid JSON', function () { pm.response.to.be.json; });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Call",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/2010-04-01/Accounts/{{accountSid}}/Calls/{{callSid}}.json",
+              "host": [
+                "http://localhost:3000"
+              ],
+              "path": [
+                "2010-04-01",
+                "Accounts",
+                "{{accountSid}}",
+                "Calls",
+                "{{callSid}}.json"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                  "pm.test('Response is valid JSON', function () { pm.response.to.be.json; });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Messaging Services",
+      "item": [
+        {
+          "name": "List Messaging Services",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/2010-04-01/Accounts/{{accountSid}}/Messaging/Services.json?PageSize=5",
+              "host": [
+                "http://localhost:3000"
+              ],
+              "path": [
+                "2010-04-01",
+                "Accounts",
+                "{{accountSid}}",
+                "Messaging",
+                "Services.json"
+              ],
+              "query": [
+                {
+                  "key": "PageSize",
+                  "value": "5"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                  "pm.test('Response is valid JSON', function () { pm.response.to.be.json; });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Messaging Service",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/2010-04-01/Accounts/{{accountSid}}/Messaging/Services/{{messagingServiceSid}}.json",
+              "host": [
+                "http://localhost:3000"
+              ],
+              "path": [
+                "2010-04-01",
+                "Accounts",
+                "{{accountSid}}",
+                "Messaging",
+                "Services",
+                "{{messagingServiceSid}}.json"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                  "pm.test('Response is valid JSON', function () { pm.response.to.be.json; });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Messaging Service Phone Numbers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/2010-04-01/Accounts/{{accountSid}}/Messaging/Services/{{messagingServiceSid}}/PhoneNumbers.json?PageSize=5",
+              "host": [
+                "http://localhost:3000"
+              ],
+              "path": [
+                "2010-04-01",
+                "Accounts",
+                "{{accountSid}}",
+                "Messaging",
+                "Services",
+                "{{messagingServiceSid}}",
+                "PhoneNumbers.json"
+              ],
+              "query": [
+                {
+                  "key": "PageSize",
+                  "value": "5"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                  "pm.test('Response is valid JSON', function () { pm.response.to.be.json; });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Brands & Campaigns",
+      "item": [
+        {
+          "name": "List Brands",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/v1/Brands.json?PageSize=5",
+              "host": [
+                "http://localhost:3000"
+              ],
+              "path": [
+                "v1",
+                "Brands.json"
+              ],
+              "query": [
+                {
+                  "key": "PageSize",
+                  "value": "5"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                  "pm.test('Response is valid JSON', function () { pm.response.to.be.json; });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "List Brand Campaigns",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/v1/Brands/{{brandSid}}/Campaigns.json?PageSize=5",
+              "host": [
+                "http://localhost:3000"
+              ],
+              "path": [
+                "v1",
+                "Brands",
+                "{{brandSid}}",
+                "Campaigns.json"
+              ],
+              "query": [
+                {
+                  "key": "PageSize",
+                  "value": "5"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                  "pm.test('Response is valid JSON', function () { pm.response.to.be.json; });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Campaign",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/v1/Brands/{{brandSid}}/Campaigns/{{campaignSid}}.json",
+              "host": [
+                "http://localhost:3000"
+              ],
+              "path": [
+                "v1",
+                "Brands",
+                "{{brandSid}}",
+                "Campaigns",
+                "{{campaignSid}}.json"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                  "pm.test('Response is valid JSON', function () { pm.response.to.be.json; });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/health",
+              "host": [
+                "http://localhost:3000"
+              ],
+              "path": [
+                "health"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                  "pm.test('Response is valid JSON', function () { pm.response.to.be.json; });",
+                  "pm.test('Health response includes account_sid', function () { const json = pm.response.json(); pm.expect(json).to.have.property('account_sid'); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "accountSid",
+      "value": "ACcabbc8db28677d7319eb5d87ff2e7562"
+    },
+    {
+      "key": "brandSid",
+      "value": "BR07f815131eb8cdcd"
+    },
+    {
+      "key": "campaignSid",
+      "value": "CBf1afc41fc5e86fe1"
+    },
+    {
+      "key": "incomingPhoneNumberSid",
+      "value": "PNee54066f89e060b0"
+    },
+    {
+      "key": "messagingServiceSid",
+      "value": "MGd4ed4dd34cd3595a"
+    },
+    {
+      "key": "messageSid",
+      "value": "SMbeaa35183194ba57"
+    },
+    {
+      "key": "callSid",
+      "value": "CAa62a6d4782c5e489"
+    }
+  ]
+}
